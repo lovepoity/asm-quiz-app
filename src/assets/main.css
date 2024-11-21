@@ -1,6 +1,6 @@
 @import './base.css';
 @import './subject.css';
-
+@import './sub-page.css';
 .header {
   position: fixed;
   top: 0;
@@ -53,7 +53,7 @@
 .header__search-input {
   width: 100%;
   padding: 8px 40px;
-  border: 2px solid #e8e8e8;
+  border: 1px solid #e8e8e8;
   border-radius: 20px;
   font-size: 0.9rem;
 }

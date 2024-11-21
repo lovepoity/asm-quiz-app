@@ -1,71 +1,59 @@
 <template>
-  <div class="containerNN">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-body">
-            <h3 class="card-title mb-4">Thông tin tài khoản</h3>
+  <div class="profile">
+    <div class="profile__container">
+      <div class="profile__card">
+        <h3 class="profile__title">Thông tin tài khoản</h3>
 
-            <form @submit.prevent="handleUpdateProfile">
-              <div class="mb-3">
-                <label class="form-label">Họ và tên</label>
-                <input type="text" class="form-control" v-model="userInfo.fullname" required />
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" v-model="userInfo.email" required />
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Tên đăng nhập</label>
-                <input type="text" class="form-control" v-model="userInfo.username" disabled />
-                <small class="text-muted">Tên đăng nhập không thể thay đổi</small>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Mật khẩu mới</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  v-model="newPassword"
-                  placeholder="Để trống nếu không đổi mật khẩu"
-                />
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Xác nhận mật khẩu mới</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  v-model="confirmPassword"
-                  :disabled="!newPassword"
-                />
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Giới tính</label>
-                <select class="form-select" v-model="userInfo.gender">
-                  <option value="true">Nam</option>
-                  <option value="false">Nữ</option>
-                </select>
-              </div>
-
-              <div class="mb-4">
-                <label class="form-label">Ngày sinh</label>
-                <input type="date" class="form-control" v-model="userInfo.birthday" required />
-              </div>
-
-              <button
-                type="submit"
-                class="btn w-100"
-                style="background-image: var(--primary-gradient)"
-              >
-                Cập nhật thông tin
-              </button>
-            </form>
+        <form class="profile__form" @submit.prevent="handleUpdateProfile">
+          <div class="profile__form-group">
+            <label class="profile__label">Họ và tên</label>
+            <input type="text" class="profile__input" v-model="userInfo.fullname" required />
           </div>
-        </div>
+
+          <div class="profile__form-group">
+            <label class="profile__label">Tên đăng nhập</label>
+            <input type="text" class="profile__input" v-model="userInfo.username" disabled />
+            <span class="profile__hint">Tên đăng nhập không thể thay đổi</span>
+          </div>
+          <div class="profile__form-group">
+            <label class="profile__label">Email</label>
+            <input type="email" class="profile__input" v-model="userInfo.email" required />
+          </div>
+
+          <div class="profile__form-group">
+            <label class="profile__label">Mật khẩu mới</label>
+            <input
+              type="password"
+              class="profile__input"
+              v-model="newPassword"
+              placeholder="Để trống nếu không đổi mật khẩu"
+            />
+          </div>
+
+          <div class="profile__form-group">
+            <label class="profile__label">Giới tính</label>
+            <select class="profile__select" v-model="userInfo.gender">
+              <option value="true">Nam</option>
+              <option value="false">Nữ</option>
+            </select>
+          </div>
+          <div class="profile__form-group">
+            <label class="profile__label">Xác nhận mật khẩu mới</label>
+            <input
+              type="password"
+              class="profile__input"
+              v-model="confirmPassword"
+              :disabled="!newPassword"
+            />
+          </div>
+
+          <div class="profile__form-group">
+            <label class="profile__label">Ngày sinh</label>
+            <input type="date" class="profile__input" v-model="userInfo.birthday" required />
+          </div>
+
+          <button type="submit" class="profile__button">Cập nhật thông tin</button>
+        </form>
       </div>
     </div>
   </div>
@@ -156,20 +144,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.card {
-  padding: 24px;
-}
-@media (max-width: 576px) {
-  .card {
-    border-radius: 0;
-    margin: 0 -15px;
-  }
-
-  .form-control,
-  .form-select {
-    font-size: 16px; /* Prevent zoom on iOS */
-  }
-}
-</style>

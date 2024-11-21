@@ -1,80 +1,81 @@
 <template>
-  <div class="container py-5 mt-5">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h3 class="card-title mb-0">Chi tiết bài thi {{ quizResult?.subjectName }}</h3>
-          <router-link to="/quiz-results" class="btn btn-outline-primary">
-            <i class="bi bi-arrow-left me-2"></i>Quay lại
+  <div class="quiz-detail">
+    <div class="quiz-detail__container">
+      <div class="quiz-detail__card">
+        <div class="quiz-detail__header">
+          <h3 class="quiz-detail__title">Chi tiết bài thi {{ quizResult?.subjectName }}</h3>
+          <router-link to="/quiz-results" class="quiz-detail__back-button">
+            <i class="bi bi-arrow-left"></i>Quay lại
           </router-link>
         </div>
 
-        <div class="quiz-info mb-4">
-          <div class="row">
-            <div class="col-md-3">
-              <div class="card bg-light">
-                <div class="card-body text-center">
-                  <h5>Điểm số</h5>
-                  <p class="h3">
-                    <span :class="getScoreClass(quizResult?.score, quizResult?.totalQuestions)">
-                      {{ quizResult?.score }}/{{ quizResult?.totalQuestions }}
-                    </span>
-                  </p>
-                </div>
-              </div>
+        <div class="quiz-detail__summary">
+          <div class="quiz-detail__stats">
+            <div class="quiz-detail__stat-card">
+              <h5 class="quiz-detail__stat-title">Điểm số</h5>
+              <p class="quiz-detail__stat-value">
+                <span :class="getScoreClass(quizResult?.score, quizResult?.totalQuestions)">
+                  {{ quizResult?.score }}/{{ quizResult?.totalQuestions }}
+                </span>
+              </p>
             </div>
-            <div class="col-md-3">
-              <div class="card bg-light">
-                <div class="card-body text-center">
-                  <h5>Thời gian làm bài</h5>
-                  <p class="h3">{{ formatTime(quizResult?.timeSpent) }}</p>
-                </div>
-              </div>
+
+            <div class="quiz-detail__stat-card">
+              <h5 class="quiz-detail__stat-title">Thời gian làm bài</h5>
+              <p class="quiz-detail__stat-value">{{ formatTime(quizResult?.timeSpent) }}</p>
             </div>
-            <div class="col-md-6">
-              <div class="card bg-light">
-                <div class="card-body text-center">
-                  <h5>Ngày thi</h5>
-                  <p class="h3">{{ formatDate(quizResult?.date) }}</p>
-                </div>
-              </div>
+
+            <div class="quiz-detail__stat-card">
+              <h5 class="quiz-detail__stat-title">Ngày thi</h5>
+              <p class="quiz-detail__stat-value">{{ formatDate(quizResult?.date) }}</p>
             </div>
           </div>
         </div>
 
-        <div class="questions-review">
-          <h4 class="mb-3">Chi tiết câu trả lời:</h4>
-          <div v-for="(question, index) in quizResult?.questions" :key="index" class="mb-4">
-            <div class="question-item p-3 border rounded">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5 class="mb-0">Câu {{ index + 1 }}</h5>
-                <span class="badge" :class="isCorrectAnswer(index) ? 'bg-success' : 'bg-danger'">
+        <div class="quiz-detail__content">
+          <h4 class="quiz-detail__subtitle">Chi tiết câu trả lời:</h4>
+          <div
+            v-for="(question, index) in quizResult?.questions"
+            :key="index"
+            class="quiz-detail__question"
+          >
+            <div class="quiz-detail__question-card">
+              <div class="quiz-detail__question-header">
+                <h5 class="quiz-detail__question-title">Câu {{ index + 1 }}</h5>
+                <span
+                  class="quiz-detail__question-status"
+                  :class="
+                    isCorrectAnswer(index)
+                      ? 'quiz-detail__question-status--correct'
+                      : 'quiz-detail__question-status--wrong'
+                  "
+                >
                   {{ isCorrectAnswer(index) ? 'Đúng' : 'Sai' }}
                 </span>
               </div>
 
-              <p class="question-text mb-3">{{ question.Text }}</p>
+              <p class="quiz-detail__question-text">{{ question.Text }}</p>
 
-              <div class="answers">
+              <div class="quiz-detail__answers">
                 <div
                   v-for="(answer, ansIndex) in question.Answers"
                   :key="ansIndex"
-                  class="answer-item p-2 mb-2 rounded"
+                  class="quiz-detail__answer"
                   :class="{
-                    'correct-answer': answer.Id === question.AnswerId,
-                    'wrong-answer':
+                    'quiz-detail__answer--correct': answer.Id === question.AnswerId,
+                    'quiz-detail__answer--wrong':
                       quizResult.answers[index] === ansIndex && answer.Id !== question.AnswerId,
-                    'selected-answer': quizResult.answers[index] === ansIndex,
+                    'quiz-detail__answer--selected': quizResult.answers[index] === ansIndex,
                   }"
                 >
                   {{ answer.Text }}
                   <i
                     v-if="answer.Id === question.AnswerId"
-                    class="bi bi-check-circle-fill text-success float-end"
+                    class="bi bi-check-circle-fill quiz-detail__answer-icon quiz-detail__answer-icon--correct"
                   ></i>
                   <i
                     v-if="quizResult.answers[index] === ansIndex && answer.Id !== question.AnswerId"
-                    class="bi bi-x-circle-fill text-danger float-end"
+                    class="bi bi-x-circle-fill quiz-detail__answer-icon quiz-detail__answer-icon--wrong"
                   ></i>
                 </div>
               </div>
@@ -142,10 +143,10 @@ export default {
     getScoreClass(score, total) {
       if (!score || !total) return ''
       const percentage = (score / total) * 100
-      if (percentage >= 80) return 'text-success'
-      if (percentage >= 60) return 'text-primary'
-      if (percentage >= 40) return 'text-warning'
-      return 'text-danger'
+      if (percentage >= 80) return 'quiz-detail__score--success'
+      if (percentage >= 60) return 'quiz-detail__score--primary'
+      if (percentage >= 40) return 'quiz-detail__score--warning'
+      return 'quiz-detail__score--danger'
     },
 
     isCorrectAnswer(questionIndex) {
@@ -157,33 +158,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.question-item {
-  background-color: #f8f9fa;
-}
-
-.answer-item {
-  background-color: white;
-  border: 1px solid #dee2e6;
-}
-
-.correct-answer {
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-}
-
-.wrong-answer {
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-}
-
-.selected-answer {
-  font-weight: 500;
-}
-
-.badge {
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-}
-</style>

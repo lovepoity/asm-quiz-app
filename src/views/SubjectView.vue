@@ -1,7 +1,7 @@
 <template>
   <div class="subject">
     <div class="subject__banner">
-      <img src="/public/banner.png" alt="banner" />
+      <img src="/public/images/banner.png" alt="banner" />
     </div>
     <div class="subject__list">
       <div class="subject__card" v-for="subject in subjects" :key="subject.Id">

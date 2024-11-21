@@ -1,127 +1,133 @@
 <template>
-  <div class="quiz-container py-5 mt-5">
-    <div class="container">
-      <!-- Quiz Header -->
-      <div class="quiz-header mb-4">
-        <h2>{{ subject.Name }}</h2>
-        <div class="quiz-info">
-          <span class="badge bg-primary me-2"
-            >Câu hỏi: {{ currentQuestion + 1 }}/{{ questions.length }}</span
-          >
-          <span class="badge bg-warning">Thời gian: {{ formatTime(timeLeft) }}</span>
+  <div class="quiz">
+    <div class="quiz__container">
+      <div class="quiz__header">
+        <h2 class="quiz__title">{{ subject.Name }}</h2>
+        <div class="quiz__info">
+          <span class="quiz__badge quiz__badge--primary">
+            Câu hỏi: {{ currentQuestion + 1 }}/{{ questions.length }}
+          </span>
+          <span class="quiz__badge quiz__badge--warning">
+            Thời gian: {{ formatTime(timeLeft) }}
+          </span>
         </div>
       </div>
 
-      <!-- Quiz Content -->
-      <div class="quiz-content" v-if="!quizCompleted">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title mb-4">{{ currentQuestionData.Text }}</h5>
+      <div class="quiz__content" v-if="!quizCompleted">
+        <div class="quiz__card">
+          <h5 class="quiz__question-text">{{ currentQuestionData.Text }}</h5>
 
-            <div class="answers-list">
-              <div
-                v-for="(answer, index) in currentQuestionData.Answers"
-                :key="index"
-                class="answer-item"
-              >
-                <input
-                  type="radio"
-                  :id="'answer' + index"
-                  :name="'question'"
-                  :value="index"
-                  v-model="selectedAnswer"
-                  class="form-check-input"
-                />
-                <label :for="'answer' + index" class="form-check-label">
-                  {{ answer.Text }}
-                </label>
-              </div>
+          <div class="quiz__answers">
+            <div
+              v-for="(answer, index) in currentQuestionData.Answers"
+              :key="index"
+              class="quiz__answer"
+              :class="{ 'quiz__answer--selected': selectedAnswer === index }"
+              @click="selectAnswer(index)"
+            >
+              <input
+                type="radio"
+                :id="'answer' + index"
+                :name="'question'"
+                :value="index"
+                v-model="selectedAnswer"
+                class="quiz__answer-input"
+              />
+              <label :for="'answer' + index" class="quiz__answer-label">
+                {{ answer.Text }}
+              </label>
             </div>
           </div>
         </div>
 
-        <!-- Navigation Buttons -->
-        <div class="d-flex justify-content-between mt-4">
+        <div class="quiz__navigation">
           <button
-            class="btn btn-outline-primary"
+            class="quiz__button quiz__button--outline"
             @click="previousQuestion"
             :disabled="currentQuestion === 0"
           >
             <i class="bi bi-arrow-left"></i> Câu trước
           </button>
           <button
-            class="btn btn-primary"
-            @click="nextQuestion"
             v-if="currentQuestion < questions.length - 1"
+            class="quiz__button quiz__button--primary"
+            @click="nextQuestion"
           >
             Câu tiếp <i class="bi bi-arrow-right"></i>
           </button>
-          <button class="btn btn-success" @click="submitQuiz" v-else>
+          <button v-else class="quiz__button quiz__button--success" @click="submitQuiz">
             Nộp bài <i class="bi bi-check2"></i>
           </button>
         </div>
       </div>
 
-      <!-- Quiz Result -->
-      <div class="quiz-result" v-else>
-        <div class="card">
-          <div class="card-body">
-            <div class="text-center mb-4">
-              <h3>Kết quả bài thi</h3>
-              <div class="result-score mb-4">
-                <h1>{{ score }}/{{ questions.length }}</h1>
-                <p>Điểm số của bạn</p>
-              </div>
+      <div class="quiz__result" v-else>
+        <div class="quiz__card">
+          <div class="quiz__result-header">
+            <h3 class="quiz__result-title">Kết quả bài thi</h3>
+            <div class="quiz__result-score">
+              <h1>{{ score }}/{{ questions.length }}</h1>
+              <p>Điểm số của bạn</p>
             </div>
+          </div>
 
-            <div class="result-details">
-              <h4 class="mb-3">Chi tiết bài làm:</h4>
-              <div v-for="(question, index) in questions" :key="index" class="mb-4">
-                <div
-                  class="question-result"
-                  :class="{
-                    'border-success': isCorrectAnswer(index),
-                    'border-danger': !isCorrectAnswer(index),
-                  }"
-                >
-                  <p class="mb-2">
-                    <span
-                      class="badge"
-                      :class="isCorrectAnswer(index) ? 'bg-success' : 'bg-danger'"
-                    >
-                      Câu {{ index + 1 }}
-                    </span>
-                    {{ question.Text }}
-                  </p>
-                  <div class="answers">
-                    <div
-                      v-for="(answer, ansIndex) in question.Answers"
-                      :key="ansIndex"
-                      class="answer"
-                      :class="{
-                        correct: answer.Id === question.AnswerId,
-                        incorrect: answers[index] === ansIndex && answer.Id !== question.AnswerId,
-                      }"
-                    >
-                      {{ answer.Text }}
-                    </div>
+          <div class="quiz__result-details">
+            <h4 class="quiz__result-subtitle">Chi tiết bài làm:</h4>
+            <div v-for="(question, index) in questions" :key="index" class="quiz__question">
+              <div
+                class="quiz__question-card"
+                :class="
+                  isCorrectAnswer(index)
+                    ? 'quiz__question-card--correct'
+                    : 'quiz__question-card--wrong'
+                "
+              >
+                <p class="quiz__question-header">
+                  <span
+                    class="quiz__question-badge"
+                    :class="
+                      isCorrectAnswer(index)
+                        ? 'quiz__question-badge--correct'
+                        : 'quiz__question-badge--wrong'
+                    "
+                  >
+                    Câu {{ index + 1 }}
+                  </span>
+                  {{ question.Text }}
+                </p>
+                <div class="quiz__answer-list">
+                  <div
+                    v-for="(answer, ansIndex) in question.Answers"
+                    :key="ansIndex"
+                    class="quiz__answer-item"
+                    :class="{
+                      'quiz__answer-item--correct': answer.Id === question.AnswerId,
+                      'quiz__answer-item--wrong':
+                        answers[index] === ansIndex && answer.Id !== question.AnswerId,
+                    }"
+                  >
+                    {{ answer.Text }}
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div class="text-center mt-4">
-              <router-link to="/" class="btn btn-primary me-2"> Về trang chủ </router-link>
-              <button class="btn btn-outline-primary" @click="retryQuiz">Làm lại</button>
-            </div>
+          <div class="quiz__actions">
+            <router-link to="/" class="quiz__button quiz__button--primary">
+              Về trang chủ
+            </router-link>
+            <button class="quiz__button quiz__button--outline" @click="retryQuiz">Làm lại</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <ToastMessage ref="toast" />
 </template>
 
 <script>
+import ToastMessage from '@/components/ToastMessage.vue'
 import subjects from '@/api/Subjects.js'
 import ADAV from '@/api/quizs/ADAV.js'
 import ADBS from '@/api/quizs/ADBS.js'
@@ -145,6 +151,9 @@ import VBPR from '@/api/quizs/VBPR.js'
 import WEBU from '@/api/quizs/WEBU.js'
 
 export default {
+  components: {
+    ToastMessage,
+  },
   data() {
     return {
       subjects: subjects,
@@ -201,8 +210,9 @@ export default {
         this.answers[this.currentQuestion] = this.selectedAnswer
         this.currentQuestion++
         this.selectedAnswer = this.answers[this.currentQuestion] ?? null
+        this.saveQuizState()
       } else {
-        alert('Vui lòng chọn câu trả lời')
+        this.$refs.toast.showToast('Vui lòng chọn câu trả lời', 'warning')
       }
     },
 
@@ -210,21 +220,23 @@ export default {
       if (this.currentQuestion > 0) {
         this.currentQuestion--
         this.selectedAnswer = this.answers[this.currentQuestion]
+        this.saveQuizState()
       }
     },
 
     submitQuiz() {
       if (this.selectedAnswer === null) {
-        alert('Vui lòng chọn câu trả lời')
+        this.$refs.toast.showToast('Vui lòng chọn câu trả lời', 'warning')
         return
       }
 
       this.answers[this.currentQuestion] = this.selectedAnswer
       this.calculateScore()
       clearInterval(this.timer)
-
       this.saveQuizResult()
       this.quizCompleted = true
+      this.clearQuizState()
+      this.$refs.toast.showToast('Nộp bài thành công!', 'success')
     },
 
     calculateScore() {
@@ -259,7 +271,7 @@ export default {
     },
 
     retryQuiz() {
-      // Reset quiz state
+      this.clearQuizState()
       this.currentQuestion = 0
       this.selectedAnswer = null
       this.answers = new Array(this.questions.length).fill(null)
@@ -267,9 +279,8 @@ export default {
       this.score = 0
       this.timeLeft = 1800
       this.startTimer()
-
-      // Get new random questions
       this.questions = this.getRandomQuestions(this.getQuizBySubjectId(this.$route.params.id), 20)
+      this.$refs.toast.showToast('Bắt đầu làm lại bài thi', 'info')
     },
 
     saveQuizResult() {
@@ -293,126 +304,71 @@ export default {
       userQuizHistory.push(result)
       localStorage.setItem(quizHistoryKey, JSON.stringify(userQuizHistory))
     },
+
+    selectAnswer(index) {
+      this.selectedAnswer = index
+      this.saveQuizState()
+    },
+
+    saveQuizState() {
+      const quizState = {
+        questions: this.questions,
+        currentQuestion: this.currentQuestion,
+        selectedAnswer: this.selectedAnswer,
+        answers: this.answers,
+        timeLeft: this.timeLeft,
+        subject: this.subject,
+      }
+      localStorage.setItem('quizState', JSON.stringify(quizState))
+    },
+
+    loadQuizState() {
+      const savedState = localStorage.getItem('quizState')
+      if (savedState) {
+        const state = JSON.parse(savedState)
+        this.questions = state.questions
+        this.currentQuestion = state.currentQuestion
+        this.selectedAnswer = state.selectedAnswer
+        this.answers = state.answers
+        this.timeLeft = state.timeLeft
+        this.subject = state.subject
+        return true
+      }
+      return false
+    },
+
+    clearQuizState() {
+      localStorage.removeItem('quizState')
+    },
   },
   created() {
     const subjectId = this.$route.params.id
 
-    // Get subject info
-    this.subject = subjects.find((s) => s.Id === subjectId)
-    if (!this.subject) {
-      this.$router.push('/')
-      return
+    if (!this.loadQuizState()) {
+      this.subject = subjects.find((s) => s.Id === subjectId)
+      if (!this.subject) {
+        this.$router.push('/')
+        return
+      }
+
+      const allQuestions = this.getQuizBySubjectId(subjectId)
+      if (!allQuestions || !allQuestions.length) {
+        this.$refs.toast.showToast('Không tìm thấy câu hỏi cho môn học này', 'danger')
+        this.$router.push('/')
+        return
+      }
+
+      this.questions = this.getRandomQuestions(allQuestions, 20)
+      this.answers = new Array(this.questions.length).fill(null)
     }
 
-    // Get all questions for this subject
-    const allQuestions = this.getQuizBySubjectId(subjectId)
-    if (!allQuestions || !allQuestions.length) {
-      alert('Không tìm thấy câu hỏi cho môn học này')
-      this.$router.push('/')
-      return
-    }
-
-    // Get 30 random questions
-    this.questions = this.getRandomQuestions(allQuestions, 2)
-
-    // Initialize answers array
-    this.answers = new Array(this.questions.length).fill(null)
-
-    // Start timer
     this.startTimer()
+
+    window.addEventListener('beforeunload', this.saveQuizState)
   },
   beforeUnmount() {
     clearInterval(this.timer)
+    window.removeEventListener('beforeunload', this.saveQuizState)
   },
 }
 </script>
-
-<style scoped>
-.quiz-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.answers-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.answer-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  border: 1px solid #dee2e6;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.answer-item:hover {
-  background-color: #f8f9fa;
-}
-
-.result-score h1 {
-  font-size: 4rem;
-  color: var(--primary-color);
-}
-
-.question-result {
-  padding: 1rem;
-  border-radius: 8px;
-  border: 2px solid #dee2e6;
-  margin-bottom: 1rem;
-}
-
-.answer {
-  padding: 0.5rem 1rem;
-  margin: 0.25rem 0;
-  border-radius: 4px;
-  background: #f8f9fa;
-}
-
-.answer.correct {
-  background: #d4edda;
-  color: #155724;
-}
-
-.answer.incorrect {
-  background: #f8d7da;
-  color: #721c24;
-}
-
-.progress {
-  height: 1.5rem;
-  border-radius: 1rem;
-}
-
-.progress-bar {
-  background-image: var(--primary-gradient);
-  transition: width 0.3s ease;
-}
-
-@media (max-width: 576px) {
-  .quiz-header {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .quiz-info {
-    width: 100%;
-    text-align: center;
-  }
-
-  .answer-item {
-    padding: 0.75rem;
-  }
-
-  .btn {
-    width: 100%;
-    margin-bottom: 0.5rem;
-  }
-}
-</style>

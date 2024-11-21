@@ -1,80 +1,69 @@
 <template>
-  <div class="container py-5 mt-5">
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <h3 class="card-title mb-4">Kết quả các bài thi</h3>
+  <div class="quiz-results">
+    <div class="quiz-results__container">
+      <div class="quiz-results__card">
+        <h3 class="quiz-results__title">Kết quả các bài thi</h3>
 
-            <div v-if="quizResults.length === 0" class="text-center py-5">
-              <i class="bi bi-journal-x display-1 text-muted"></i>
-              <p class="mt-3">Bạn chưa có bài thi nào</p>
-              <router-link to="/" class="btn btn-primary"> Làm bài thi ngay </router-link>
+        <div v-if="quizResults.length === 0" class="quiz-results__empty">
+          <i class="quiz-results__empty-icon bi bi-journal-x"></i>
+          <p class="quiz-results__empty-text">Bạn chưa có bài thi nào</p>
+          <router-link to="/subjects" class="quiz-results__button">Làm bài thi ngay</router-link>
+        </div>
+
+        <div v-else class="quiz-results__table-wrapper">
+          <table class="quiz-results__table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Môn học</th>
+                <th>Điểm số</th>
+                <th>Thời gian làm bài</th>
+                <th>Ngày thi</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(result, index) in quizResults" :key="index">
+                <td>{{ index + 1 }}</td>
+                <td>{{ result.subjectName }}</td>
+                <td>
+                  <span
+                    class="quiz-results__score"
+                    :class="getScoreClass(result.score, result.totalQuestions)"
+                  >
+                    {{ result.score }}/{{ result.totalQuestions }}
+                  </span>
+                </td>
+                <td>{{ formatTime(result.timeSpent) }}</td>
+                <td>{{ formatDate(result.date) }}</td>
+                <td>
+                  <button class="quiz-results__detail-button" @click="viewDetail(result)">
+                    <i class="bi bi-eye"></i>
+                    Chi tiết
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div v-if="quizResults.length > 0" class="quiz-results__stats">
+          <div class="quiz-results__stat-card">
+            <div class="quiz-results__stat-content">
+              <h5 class="quiz-results__stat-title">Số bài đã thi</h5>
+              <p class="quiz-results__stat-value">{{ quizResults.length }}</p>
             </div>
-
-            <div v-else class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>STT</th>
-                    <th>Môn học</th>
-                    <th>Điểm số</th>
-                    <th>Thời gian làm bài</th>
-                    <th>Ngày thi</th>
-                    <th>Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(result, index) in quizResults" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ result.subjectName }}</td>
-                    <td>
-                      <span
-                        class="badge"
-                        :class="getScoreClass(result.score, result.totalQuestions)"
-                      >
-                        {{ result.score }}/{{ result.totalQuestions }}
-                      </span>
-                    </td>
-                    <td>{{ formatTime(result.timeSpent) }}</td>
-                    <td>{{ formatDate(result.date) }}</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" @click="viewDetail(result)">
-                        <i class="bi bi-eye me-1"></i>
-                        Chi tiết
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          </div>
+          <div class="quiz-results__stat-card">
+            <div class="quiz-results__stat-content">
+              <h5 class="quiz-results__stat-title">Điểm trung bình</h5>
+              <p class="quiz-results__stat-value">{{ averageScore.toFixed(1) }}/10</p>
             </div>
-
-            <!-- Thống kê tổng quát -->
-            <div v-if="quizResults.length > 0" class="row mt-4">
-              <div class="col-md-4">
-                <div class="card bg-light">
-                  <div class="card-body text-center">
-                    <h5>Số bài đã thi</h5>
-                    <p class="h3">{{ quizResults.length }}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card bg-light">
-                  <div class="card-body text-center">
-                    <h5>Điểm trung bình</h5>
-                    <p class="h3">{{ averageScore.toFixed(1) }}/10</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card bg-light">
-                  <div class="card-body text-center">
-                    <h5>Bài thi gần nhất</h5>
-                    <p class="h3">{{ formatDate(lastQuizDate) }}</p>
-                  </div>
-                </div>
-              </div>
+          </div>
+          <div class="quiz-results__stat-card">
+            <div class="quiz-results__stat-content">
+              <h5 class="quiz-results__stat-title">Bài thi gần nhất</h5>
+              <p class="quiz-results__stat-value">{{ formatDate(lastQuizDate) }}</p>
             </div>
           </div>
         </div>
@@ -166,26 +155,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.badge {
-  font-size: 0.9rem;
-  padding: 0.5rem 0.8rem;
-}
-
-@media (max-width: 768px) {
-  .table-responsive {
-    margin: 0 -15px;
-  }
-
-  .table td,
-  .table th {
-    white-space: nowrap;
-    padding: 0.5rem;
-  }
-
-  .badge {
-    padding: 0.35rem 0.5rem;
-  }
-}
-</style>

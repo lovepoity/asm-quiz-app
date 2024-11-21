@@ -7,28 +7,28 @@
       </router-link>
 
       <div class="header__search">
-        <div class="header__search-box">
+        <div class="header__search-box" ref="searchBox">
           <input
             type="text"
             class="header__search-input"
             placeholder="Tìm kiếm môn học..."
             v-model="searchQuery"
-            @focus="showSearchResults = true"
             @input="handleSearch"
           />
           <i class="bi bi-search header__search-icon"></i>
 
-          <div
-            class="header__search-results"
-            v-if="showSearchResults && filteredSubjects.length > 0"
-          >
+          <div class="header__search-results" v-show="searchQuery.length > 0">
             <div
               v-for="subject in filteredSubjects"
               :key="subject.Id"
               class="header__search-item"
               @click="handleSelectSubject(subject)"
             >
-              <img :src="getLogoUrl(subject.Id)" :alt="subject.Name" />
+              <img
+                :src="getLogoUrl(subject.Id)"
+                :alt="subject.Name"
+                @error="handleImageError(subject.Id)"
+              />
               <div class="header__search-info">
                 <div class="header__search-name">{{ subject.Name }}</div>
                 <div class="header__search-id">{{ subject.Id }}</div>
@@ -100,7 +100,7 @@
             Email: sunao@gmail.com<br />
             Địa chỉ: Số 1, ngõ 41, Trần Duy Hưng, Cầu Giấy, Hà Nội
           </p>
-          <img src="/src/assets/images/dmca-protected.png" alt="DMCA" class="footer__dmca" />
+          <img src="/public/images/dmca-protected.png" alt="DMCA" class="footer__dmca" />
         </div>
 
         <div class="footer__section">
@@ -184,8 +184,8 @@ export default {
       subjects: subjects,
       isDropdownOpen: false,
       searchQuery: '',
-      showSearchResults: false,
       filteredSubjects: [],
+      isSearchResultsVisible: false,
     }
   },
 
@@ -200,19 +200,10 @@ export default {
   },
 
   created() {
-    // Add click outside listener
     document.addEventListener('click', this.handleClickOutside)
-
-    // Thêm event listener để đóng search results khi click outside
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.search-box')) {
-        this.showSearchResults = false
-      }
-    })
   },
 
   beforeUnmount() {
-    // Remove click outside listener
     document.removeEventListener('click', this.handleClickOutside)
   },
 
@@ -240,7 +231,7 @@ export default {
         VBPR: 'terminal',
         WEBU: 'web',
       }
-      return `https://placehold.co/200x200/2fbdff/ffffff?text=${iconMap[subjectId] || 'school'}`
+      event.target.src = `https://placehold.co/200x200/2fbdff/ffffff?text=${iconMap[subjectId] || 'school'}`
     },
     handleLogout() {
       // Clear user data
@@ -248,7 +239,7 @@ export default {
       currentUser.value = null
       this.isDropdownOpen = false
       this.$router.push('/')
-      this.$refs.toast.showToast('Đã đăng xuất thành công!', 'success')
+      this.$refs.toast.showToast('Đã đăng xut thành công!', 'success')
     },
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen
@@ -260,30 +251,35 @@ export default {
       if (this.$refs.dropdown && !this.$refs.dropdown.contains(event.target)) {
         this.isDropdownOpen = false
       }
+
+      if (this.$refs.searchBox && !this.$refs.searchBox.contains(event.target)) {
+        this.searchQuery = ''
+        this.filteredSubjects = []
+      }
     },
     handleSearch() {
-      if (!this.searchQuery.trim()) {
+      const query = this.searchQuery.toLowerCase()
+      if (!query) {
         this.filteredSubjects = []
         return
       }
 
-      const query = this.searchQuery.toLowerCase()
       this.filteredSubjects = this.subjects
-        .filter(
-          (subject) =>
-            subject.Name.toLowerCase().includes(query) || subject.Id.toLowerCase().includes(query),
-        )
-        .slice(0, 5) // Giới hạn 5 kết quả
+        .filter((subject) => {
+          const subjectName = subject.Name.toLowerCase()
+          const subjectId = subject.Id.toLowerCase()
+          return subjectName.startsWith(query) || subjectId.startsWith(query)
+        })
+        .slice(0, 5)
     },
 
     handleSelectSubject(subject) {
       this.searchQuery = ''
-      this.showSearchResults = false
       this.$router.push(`/quiz/${subject.Id}`)
     },
 
     getLogoUrl(subjectId) {
-      return new URL(`../api/logos/${subjectId}.png`, import.meta.url).href
+      return new URL(`/src/api/logos/${subjectId}.png`, import.meta.url).href
     },
   },
 }
@@ -301,5 +297,84 @@ export default {
   .main-content {
     margin-left: 0;
   }
+}
+
+.header__search {
+  position: relative;
+  flex: 1;
+  max-width: 600px;
+  margin: 0 20px;
+}
+
+.header__search-box {
+  position: relative;
+  pointer-events: auto;
+}
+
+.header__search-input {
+  width: 100%;
+  padding: 8px 40px 8px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  outline: none;
+  cursor: text;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.header__search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.header__search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-top: 4px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+.header__search-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.header__search-item:hover {
+  background-color: #f3f4f6;
+}
+
+.header__search-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  margin-right: 12px;
+}
+
+.header__search-info {
+  flex: 1;
+}
+
+.header__search-name {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.header__search-id {
+  font-size: 0.875rem;
+  color: #6b7280;
 }
 </style>
