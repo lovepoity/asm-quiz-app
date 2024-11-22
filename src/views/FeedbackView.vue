@@ -15,7 +15,6 @@
             <h3 class="fw-bold mb-4">Gửi góp ý của bạn</h3>
 
             <form @submit.prevent="handleSubmit">
-              <!-- Rating Section -->
               <div class="mb-4">
                 <label class="form-label fw-bold">Đánh giá chung</label>
                 <div class="rating-group d-flex gap-3">
@@ -34,7 +33,6 @@
                 </div>
               </div>
 
-              <!-- Category Selection -->
               <div class="mb-4">
                 <label class="form-label fw-bold">Phân loại góp ý</label>
                 <div class="row">
@@ -51,7 +49,6 @@
                 </div>
               </div>
 
-              <!-- User Info -->
               <div class="row mb-4">
                 <div class="col-md-6 mb-3">
                   <label class="form-label fw-bold">Họ và tên</label>
@@ -63,7 +60,6 @@
                 </div>
               </div>
 
-              <!-- Feedback Content -->
               <div class="mb-4">
                 <label class="form-label fw-bold">Nội dung góp ý</label>
                 <textarea
@@ -75,7 +71,6 @@
                 ></textarea>
               </div>
 
-              <!-- File Upload -->
               <div class="mb-4">
                 <label class="form-label fw-bold">Đính kèm hình ảnh (nếu có)</label>
                 <input
@@ -130,7 +125,6 @@ export default {
     },
     handleSubmit() {
       console.log('Form submitted:', this.form)
-      // Reset form
       this.form = {
         rating: 5,
         category: 'interface',

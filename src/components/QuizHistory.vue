@@ -1,7 +1,6 @@
 <template>
   <div class="quiz-history">
     <h3 class="mb-4">Lịch sử làm bài</h3>
-
     <div class="table-responsive">
       <table class="table">
         <thead>
@@ -34,17 +33,14 @@
 <script>
 export default {
   name: 'QuizHistory',
-
   data() {
     return {
       quizHistory: [],
     }
   },
-
   created() {
     this.loadHistory()
   },
-
   methods: {
     loadHistory() {
       const history = localStorage.getItem('quizHistory')
@@ -52,19 +48,15 @@ export default {
         this.quizHistory = JSON.parse(history)
       }
     },
-
     formatTime(seconds) {
       const minutes = Math.floor(seconds / 60)
       const remainingSeconds = seconds % 60
       return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
     },
-
     formatDate(dateString) {
       return new Date(dateString).toLocaleDateString('vi-VN')
     },
-
     viewDetail(result) {
-      // Có thể thêm route để xem chi tiết bài làm
       this.$router.push({
         name: 'quiz-detail',
         params: {

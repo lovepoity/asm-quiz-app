@@ -10,7 +10,6 @@
 
     <div class="container pb-5">
       <div class="row">
-        <!-- Contact Info -->
         <div class="col-lg-4 mb-4">
           <div class="contact-info p-4 rounded-4 shadow-sm">
             <h3 class="fw-bold mb-4">Thông tin liên hệ</h3>
@@ -57,7 +56,6 @@
           </div>
         </div>
 
-        <!-- Contact Form -->
         <div class="col-lg-8">
           <div class="contact-form p-4 rounded-4 shadow-sm">
             <h3 class="fw-bold mb-4">Gửi tin nhắn cho chúng tôi</h3>
@@ -101,7 +99,6 @@
       </div>
     </div>
 
-    <!-- Map Section -->
     <section class="map mt-5">
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.8025459042683!2d108.1670675!3d16.0750095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219b509a30cfb%3A0x96e408c6b0419760!2zMTM3IE5ndXnhu4VuIFRo4buLIFRo4bqtcCwgVGhhbmggS2jDqiBUw6J5LCBMacOqbiBDaGnhu4N1LCDEkMOgIE7hurVuZyA1NTAwMDAsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1624271371407!5m2!1svi!2s"
@@ -131,9 +128,7 @@ export default {
   },
   methods: {
     handleSubmit() {
-      // Xử lý gửi form ở đây
       console.log('Form submitted:', this.form)
-      // Reset form
       this.form = {
         name: '',
         email: '',
@@ -141,7 +136,6 @@ export default {
         subject: 'general',
         message: '',
       }
-      // Hiển thị thông báo thành công
       alert('Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất có thể!')
     },
   },

@@ -1,6 +1,5 @@
 <template>
   <div class="faq padding-top">
-    <!-- Hero Section -->
     <section class="faq-hero py-5">
       <div class="container text-center text-white">
         <h1 class="display-4 fw-bold mb-4">Câu hỏi thường gặp</h1>
@@ -9,7 +8,6 @@
     </section>
 
     <div class="container py-5">
-      <!-- Search Box -->
       <div class="row justify-content-center mb-5">
         <div class="col-lg-6">
           <div class="search-box">
@@ -24,7 +22,6 @@
         </div>
       </div>
 
-      <!-- FAQ Categories -->
       <div class="row mb-5">
         <div class="col-md-3 mb-3" v-for="cat in categories" :key="cat.id">
           <div
@@ -38,8 +35,6 @@
           </div>
         </div>
       </div>
-
-      <!-- FAQ Accordion -->
       <div class="accordion" id="faqAccordion">
         <div
           class="accordion-item rounded-4 mb-3"
@@ -68,7 +63,6 @@
         </div>
       </div>
 
-      <!-- Still Have Questions -->
       <div class="text-center mt-5 pt-4">
         <h3 class="fw-bold mb-4">Vẫn chưa tìm thấy câu trả lời?</h3>
         <router-link to="/contact" class="btn btn-primary btn-lg"> Liên hệ hỗ trợ </router-link>
@@ -106,7 +100,6 @@ export default {
           question: 'Các phương thức thanh toán được hỗ trợ?',
           answer: 'Chúng tôi hỗ trợ nhiều phương thức thanh toán như...',
         },
-        // Thêm nhiều FAQ khác
       ],
     }
   },

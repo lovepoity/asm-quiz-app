@@ -108,14 +108,11 @@ export default {
         this.$router.push('/login')
         return
       }
-
-      // Lấy lịch sử thi theo username
       const quizHistoryKey = `quizHistory_${currentUser.username}`
       const results = localStorage.getItem(quizHistoryKey)
 
       if (results) {
         this.quizResults = JSON.parse(results)
-        // Sắp xếp theo thời gian mới nhất
         this.quizResults.sort((a, b) => new Date(b.date) - new Date(a.date))
       }
     },

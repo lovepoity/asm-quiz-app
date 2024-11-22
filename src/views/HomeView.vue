@@ -1,6 +1,5 @@
 <template>
   <div class="home padding-top">
-    <!-- Hero Section -->
     <section class="hero py-5">
       <div class="container">
         <div class="row align-items-center">
@@ -20,7 +19,6 @@
       </div>
     </section>
 
-    <!-- Stats Section -->
     <section class="stats py-5">
       <div class="container">
         <div class="row text-center">
@@ -52,7 +50,6 @@
       </div>
     </section>
 
-    <!-- Featured Courses -->
     <section class="courses py-5 bg-light">
       <div class="container">
         <h2 class="text-center fw-bold mb-2">Khóa học nổi bật</h2>
@@ -148,7 +145,6 @@
       </div>
     </section>
 
-    <!-- Benefits Section -->
     <section class="benefits py-5">
       <div class="container">
         <h2 class="text-center fw-bold mb-2">Tại sao chọn Sunao Education?</h2>
@@ -189,7 +185,6 @@
       </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta py-5">
       <div class="container text-center">
         <h2 class="fw-bold mb-4">Sẵn sàng để bắt đầu hành trình học tập?</h2>

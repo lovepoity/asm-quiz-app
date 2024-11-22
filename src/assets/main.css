@@ -8,7 +8,7 @@
   right: 0;
   height: 70px;
   background: var(--white);
-  border-bottom: 1px solid #e8ebed;
+  border-bottom: 1px solid var(--border-color);
   z-index: 100;
 }
 
@@ -53,7 +53,7 @@
 .header__search-input {
   width: 100%;
   padding: 8px 40px;
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   font-size: 0.9rem;
 }
@@ -125,21 +125,7 @@
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
-}
-
-.header__login {
-  background: linear-gradient(to right, #f73232 0%, #fd7608 50%, #f73232 100%);
-  background-size: 200% auto;
-  transition: all 0.5s ease;
-  color: var(--white);
-}
-
-.header__login:hover {
-  background-position: right center;
-}
-
-.header__user {
-  position: relative;
+  border: 1px solid var(--border-color);
 }
 
 .header__user-btn {
@@ -157,7 +143,7 @@
 
 .header__user-btn:focus {
   background: var(--gray-light);
-  border: 2px solid #e8ebed;
+  border: 2px solid var(--border-color);
 }
 
 .header__user-btn img {
@@ -191,7 +177,7 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .header__dropdown-header img {
@@ -220,7 +206,6 @@
   align-items: center;
   gap: 0.8rem;
   padding: 0.8rem 1rem;
-  color: var(--text-color);
   text-decoration: none;
   font-size: 0.9rem;
   transition: background 0.2s;
@@ -231,7 +216,7 @@
 }
 
 .header__dropdown-item--danger {
-  color: #dc3545;
+  color: var(--red-dark);
   width: 100%;
   text-align: left;
   border: none;
@@ -241,7 +226,7 @@
 
 .header__dropdown-divider {
   height: 1px;
-  background: #eee;
+  background: var(--border-color);
   margin: 0.5rem 0;
 }
 
@@ -249,7 +234,7 @@
 /* Footer */
 .footer {
   background: #181821;
-  color: #fff;
+  color: var(--white);
   padding: 60px 0 30px;
 }
 
@@ -284,7 +269,7 @@
 .footer__logo span {
   font-size: 1rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--white);
 }
 
 .footer__contact {
@@ -302,7 +287,7 @@
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 20px;
-  color: #fff;
+  color: var(--white);
 }
 
 .footer__list {
@@ -319,7 +304,7 @@
 }
 
 .footer__link:hover {
-  color: #fff;
+  color: var(--white);
 }
 
 .footer__section--company {
@@ -355,7 +340,7 @@
 }
 
 .footer__social-link:hover {
-  color: #fff;
+  color: var(--white);
 }
 
 @media (max-width: 1024px) {
@@ -408,8 +393,7 @@
 
 .main-content {
   flex: 1;
-  padding: 16px;
-  border-left: 1px solid #e8ebed;
+  padding: 16px 30px 16px 16px;
 }
 
 @media (max-width: 768px) {
@@ -438,7 +422,7 @@
   background: var(--white);
   border-radius: 20px;
   padding: 32px 96px;
-  border: 1px solid #e8ebed;
+  border: 1px solid var(--border-color);
 }
 
 .auth-card h2 {
@@ -461,7 +445,7 @@
   height: 44px;
   padding: 8px 16px;
   font-size: 0.95rem;
-  border: 2px solid #e8ebed;
+  border: 2px solid var(--border-color);
   border-radius: 20px;
   transition: all 0.2s ease;
   outline: none;
@@ -472,7 +456,7 @@
 }
 
 .form-control:focus {
-  border: 2px solid #e8ebed;
+  border: 2px solid var(--border-color);
   box-shadow: none;
   outline: none;
 }
@@ -482,7 +466,7 @@
   height: 44px;
   padding: 8px 16px;
   font-size: 0.95rem;
-  border: 2px solid #e8ebed;
+  border: 2px solid var(--border-color);
   border-radius: 20px;
   background-position: right 12px center;
   outline: none;
@@ -493,7 +477,7 @@
 }
 
 .form-select:focus {
-  border: 2px solid #e8ebed;
+  border: 2px solid var(--border-color);
   box-shadow: none;
   outline: none;
 }
@@ -506,7 +490,12 @@
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  background: linear-gradient(to right, #f73232 0%, #fd7608 50%, #f73232 100%);
+  background: linear-gradient(
+    to right,
+    var(--red-dark) 0%,
+    var(--orange-dark) 50%,
+    var(--red-dark) 100%
+  );
   background-size: 200% auto;
   transition: all 0.5s ease;
   color: var(--white);
@@ -527,7 +516,7 @@
 .alert-danger {
   background-color: #fef2f2;
   border: 1px solid #fee2e2;
-  color: #dc2626;
+  color: var(--red-dark);
 }
 
 .auth-card p {
@@ -536,7 +525,6 @@
 }
 
 .auth-card a {
-  color: var(--primary-color);
   font-weight: 600;
   text-decoration: none;
 }

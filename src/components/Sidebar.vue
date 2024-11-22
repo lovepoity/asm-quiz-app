@@ -6,7 +6,11 @@
         <span>Trang chủ</span>
       </router-link>
 
-      <router-link to="/subjects" class="sidebar__item">
+      <router-link
+        to="/subjects"
+        class="sidebar__item"
+        :class="{ 'router-link-active': isQuizRoute }"
+      >
         <i class="fa-solid fa-book"></i>
         <span>Môn học</span>
       </router-link>
@@ -28,6 +32,16 @@
     </nav>
   </aside>
 </template>
+
+<script>
+export default {
+  computed: {
+    isQuizRoute() {
+      return this.$route.path.includes('/quiz/')
+    },
+  },
+}
+</script>
 
 <style scoped>
 .sidebar {

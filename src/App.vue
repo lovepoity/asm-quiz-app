@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header" v-if="!isQuizRoute">
     <div class="header__container">
       <router-link to="/" class="header__logo">
         <img src="/favicon.ico" alt="logo" />
@@ -80,14 +80,14 @@
     </div>
   </header>
 
-  <div class="layout">
-    <Sidebar />
-    <main class="main-content">
+  <div class="layout" :class="{ 'layout--full': isQuizRoute }">
+    <Sidebar v-if="!isQuizRoute" />
+    <main class="main-content" :class="{ 'main-content--full': isQuizRoute }">
       <router-view></router-view>
     </main>
   </div>
 
-  <footer class="footer">
+  <footer class="footer" v-if="!isQuizRoute">
     <div class="footer__container">
       <div class="footer__content">
         <div class="footer__section footer__section--about">
@@ -170,7 +170,7 @@
 
 <script>
 import ToastMessage from '@/components/ToastMessage.vue'
-import { currentUser } from '@/utils/eventBus'
+import { currentUser } from '@/assets/eventBus'
 import subjects from '@/api/Subjects.js'
 import Sidebar from '@/components/Sidebar.vue'
 
@@ -196,6 +196,9 @@ export default {
     userAvatar() {
       // Tạo avatar ngẫu nhiên từ DiceBear API
       return `https://api.dicebear.com/7.x/avataaars/svg?seed=${this.currentUser?.username}`
+    },
+    isQuizRoute() {
+      return this.$route.path.includes('/quiz/')
     },
   },
 
@@ -376,5 +379,15 @@ export default {
 .header__search-id {
   font-size: 0.875rem;
   color: #6b7280;
+}
+
+.layout--full {
+  margin: 0;
+  padding: 0;
+}
+
+.main-content--full {
+  margin-left: 0;
+  padding: 0;
 }
 </style>

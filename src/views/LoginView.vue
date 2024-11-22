@@ -3,7 +3,6 @@
     <div class="auth-card">
       <h2 class="text-center mb-4">Đăng nhập</h2>
 
-      <!-- Alert for error message -->
       <div class="alert alert-danger" v-if="error">
         {{ error }}
       </div>
@@ -11,11 +10,11 @@
       <form @submit.prevent="handleLogin">
         <div class="mb-3">
           <label class="form-label">Tên đăng nhập</label>
-          <input type="text" class="form-control" v-model="username" required />
+          <input tabindex="1" type="text" class="form-control" v-model="username" required />
         </div>
         <div class="mb-4">
           <label class="form-label">Mật khẩu</label>
-          <input type="password" class="form-control" v-model="password" required />
+          <input tabindex="2" type="password" class="form-control" v-model="password" required />
         </div>
         <button type="submit" class="btn w-100 mb-3">Đăng nhập</button>
         <p class="text-center mb-0">
@@ -28,7 +27,7 @@
 </template>
 
 <script>
-import { updateUser } from '@/utils/eventBus'
+import { updateUser } from '@/assets/eventBus'
 
 export default {
   data() {

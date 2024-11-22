@@ -1,124 +1,108 @@
 <template>
   <div class="quiz">
-    <div class="quiz__container">
-      <div class="quiz__header">
-        <h2 class="quiz__title">{{ subject.Name }}</h2>
-        <div class="quiz__info">
-          <span class="quiz__badge quiz__badge--primary">
-            Câu hỏi: {{ currentQuestion + 1 }}/{{ questions.length }}
-          </span>
-          <span class="quiz__badge quiz__badge--warning">
-            Thời gian: {{ formatTime(timeLeft) }}
-          </span>
-        </div>
-      </div>
-
-      <div class="quiz__content" v-if="!quizCompleted">
-        <div class="quiz__card">
-          <h5 class="quiz__question-text">{{ currentQuestionData.Text }}</h5>
-
-          <div class="quiz__answers">
-            <div
-              v-for="(answer, index) in currentQuestionData.Answers"
-              :key="index"
-              class="quiz__answer"
-              :class="{ 'quiz__answer--selected': selectedAnswer === index }"
-              @click="selectAnswer(index)"
-            >
-              <input
-                type="radio"
-                :id="'answer' + index"
-                :name="'question'"
-                :value="index"
-                v-model="selectedAnswer"
-                class="quiz__answer-input"
-              />
-              <label :for="'answer' + index" class="quiz__answer-label">
-                {{ answer.Text }}
-              </label>
-            </div>
+    <div v-if="!quizCompleted" class="quiz__overlay"></div>
+    <div class="quiz__container" :class="{ 'quiz--in-progress': !quizCompleted }">
+      <div v-if="!quizCompleted">
+        <div class="quiz__header">
+          <h2 class="quiz__title">{{ subject.Name }}</h2>
+          <div class="quiz__info">
+            <span class="quiz__badge quiz__badge--primary">
+              Question: {{ currentQuestion + 1 }}/{{ questions.length }}
+            </span>
+            <span class="quiz__badge quiz__badge--warning">
+              Time left: {{ formatTime(timeLeft) }}
+            </span>
           </div>
         </div>
 
-        <div class="quiz__navigation">
-          <button
-            class="quiz__button quiz__button--outline"
-            @click="previousQuestion"
-            :disabled="currentQuestion === 0"
-          >
-            <i class="bi bi-arrow-left"></i> Câu trước
-          </button>
-          <button
-            v-if="currentQuestion < questions.length - 1"
-            class="quiz__button quiz__button--primary"
-            @click="nextQuestion"
-          >
-            Câu tiếp <i class="bi bi-arrow-right"></i>
-          </button>
-          <button v-else class="quiz__button quiz__button--success" @click="submitQuiz">
-            Nộp bài <i class="bi bi-check2"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="quiz__result" v-else>
-        <div class="quiz__card">
-          <div class="quiz__result-header">
-            <h3 class="quiz__result-title">Kết quả bài thi</h3>
-            <div class="quiz__result-score">
-              <h1>{{ score }}/{{ questions.length }}</h1>
-              <p>Điểm số của bạn</p>
-            </div>
-          </div>
-
-          <div class="quiz__result-details">
-            <h4 class="quiz__result-subtitle">Chi tiết bài làm:</h4>
-            <div v-for="(question, index) in questions" :key="index" class="quiz__question">
-              <div
-                class="quiz__question-card"
-                :class="
-                  isCorrectAnswer(index)
-                    ? 'quiz__question-card--correct'
-                    : 'quiz__question-card--wrong'
-                "
-              >
-                <p class="quiz__question-header">
-                  <span
-                    class="quiz__question-badge"
-                    :class="
-                      isCorrectAnswer(index)
-                        ? 'quiz__question-badge--correct'
-                        : 'quiz__question-badge--wrong'
-                    "
-                  >
-                    Câu {{ index + 1 }}
-                  </span>
-                  {{ question.Text }}
-                </p>
-                <div class="quiz__answer-list">
+        <div class="quiz__content">
+          <div class="quiz__content-wrapper">
+            <div class="quiz__question--left">
+              <div class="quiz__card">
+                <h5 class="quiz__question-text">{{ currentQuestionData.Text }}</h5>
+                <div class="quiz__answers">
                   <div
-                    v-for="(answer, ansIndex) in question.Answers"
-                    :key="ansIndex"
-                    class="quiz__answer-item"
-                    :class="{
-                      'quiz__answer-item--correct': answer.Id === question.AnswerId,
-                      'quiz__answer-item--wrong':
-                        answers[index] === ansIndex && answer.Id !== question.AnswerId,
-                    }"
+                    v-for="(answer, index) in currentQuestionData.Answers"
+                    :key="index"
+                    class="quiz__answer"
+                    :class="{ 'quiz__answer--selected': selectedAnswer === index }"
+                    @click="selectAnswer(index)"
                   >
-                    {{ answer.Text }}
+                    <input
+                      type="radio"
+                      :id="'answer' + index"
+                      :name="'question'"
+                      :value="index"
+                      v-model="selectedAnswer"
+                      class="quiz__answer-input"
+                    />
+                    <label :for="'answer' + index" class="quiz__answer-label">
+                      {{ answer.Text }}
+                    </label>
                   </div>
                 </div>
               </div>
+              <div class="quiz__navigation">
+                <button
+                  class="quiz__button quiz__button--outline"
+                  @click="previousQuestion"
+                  :disabled="currentQuestion === 0"
+                >
+                  <i class="bi bi-arrow-left"></i> Câu trước
+                </button>
+                <button
+                  v-if="currentQuestion < questions.length - 1"
+                  class="quiz__button quiz__button--primary"
+                  @click="nextQuestion"
+                >
+                  Câu tiếp <i class="bi bi-arrow-right"></i>
+                </button>
+                <button v-else class="quiz__button quiz__button--success" @click="submitQuiz">
+                  Nộp bài <i class="bi bi-check2"></i>
+                </button>
+              </div>
+            </div>
+            <div class="quiz__question-navigator">
+              <div
+                v-for="(question, index) in questions"
+                :key="index"
+                class="quiz__question-number"
+                :class="{
+                  'quiz__question-number--current': currentQuestion === index,
+                  'quiz__question-number--answered': answers[index] !== null,
+                }"
+                @click="goToQuestion(index)"
+              >
+                {{ index + 1 }}
+              </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="quiz__actions">
-            <router-link to="/" class="quiz__button quiz__button--primary">
-              Về trang chủ
-            </router-link>
-            <button class="quiz__button quiz__button--outline" @click="retryQuiz">Làm lại</button>
-          </div>
+      <div v-else class="quiz__completed">
+        <div class="quiz__completed-content">
+          <i class="bi bi-check-circle-fill quiz__completed-icon"></i>
+          <h2 class="quiz__completed-title">Chúc mừng!</h2>
+          <p class="quiz__completed-message">Bạn đã hoàn thành bài thi</p>
+          <router-link to="/" class="quiz__button quiz__button--primary">
+            Về trang chủ
+          </router-link>
+        </div>
+      </div>
+    </div>
+    <div v-if="showConfirmSubmit" class="quiz__popup-overlay">
+      <div class="quiz__popup">
+        <h3 class="quiz__popup-title">Xác nhận nộp bài</h3>
+        <p class="quiz__popup-message">
+          Bạn có chắc chắn muốn nộp bài?<br />
+          Số câu đã làm: {{ answers.filter((a) => a !== null).length }}/{{ questions.length }}
+        </p>
+        <div class="quiz__popup-actions">
+          <button class="quiz__button quiz__button--outline" @click="showConfirmSubmit = false">
+            Hủy
+          </button>
+          <button class="quiz__button quiz__button--success" @click="confirmSubmit">Nộp bài</button>
         </div>
       </div>
     </div>
@@ -166,6 +150,7 @@ export default {
       timeLeft: 1800,
       timer: null,
       score: 0,
+      showConfirmSubmit: false,
     }
   },
   computed: {
@@ -206,14 +191,10 @@ export default {
     },
 
     nextQuestion() {
-      if (this.selectedAnswer !== null) {
-        this.answers[this.currentQuestion] = this.selectedAnswer
-        this.currentQuestion++
-        this.selectedAnswer = this.answers[this.currentQuestion] ?? null
-        this.saveQuizState()
-      } else {
-        this.$refs.toast.showToast('Vui lòng chọn câu trả lời', 'warning')
-      }
+      this.answers[this.currentQuestion] = this.selectedAnswer
+      this.currentQuestion++
+      this.selectedAnswer = this.answers[this.currentQuestion] ?? null
+      this.saveQuizState()
     },
 
     previousQuestion() {
@@ -225,27 +206,25 @@ export default {
     },
 
     submitQuiz() {
-      if (this.selectedAnswer === null) {
-        this.$refs.toast.showToast('Vui lòng chọn câu trả lời', 'warning')
-        return
-      }
-
-      this.answers[this.currentQuestion] = this.selectedAnswer
-      this.calculateScore()
-      clearInterval(this.timer)
-      this.saveQuizResult()
-      this.quizCompleted = true
-      this.clearQuizState()
-      this.$refs.toast.showToast('Nộp bài thành công!', 'success')
+      this.showConfirmSubmit = true
     },
 
-    calculateScore() {
-      this.score = this.answers.reduce((score, selectedAnswerIndex, questionIndex) => {
-        const question = this.questions[questionIndex]
-        const correctAnswerId = question.AnswerId
-        const selectedAnswer = question.Answers[selectedAnswerIndex]
-        return score + (selectedAnswer?.Id === correctAnswerId ? 1 : 0)
+    confirmSubmit() {
+      this.score = this.answers.reduce((total, answer, index) => {
+        return total + (this.isCorrectAnswer(index) ? 1 : 0)
       }, 0)
+
+      this.saveQuizResult()
+
+      this.showConfirmSubmit = false
+      this.quizCompleted = true
+
+      if (this.timer) {
+        clearInterval(this.timer)
+        this.timer = null
+      }
+
+      this.clearQuizState()
     },
 
     formatTime(seconds) {
@@ -259,7 +238,7 @@ export default {
         if (this.timeLeft > 0) {
           this.timeLeft--
         } else {
-          this.submitQuiz()
+          this.submitQuiz(true)
         }
       }, 1000)
     },
@@ -268,19 +247,6 @@ export default {
       const question = this.questions[questionIndex]
       const selectedAnswer = question.Answers[this.answers[questionIndex]]
       return selectedAnswer?.Id === question.AnswerId
-    },
-
-    retryQuiz() {
-      this.clearQuizState()
-      this.currentQuestion = 0
-      this.selectedAnswer = null
-      this.answers = new Array(this.questions.length).fill(null)
-      this.quizCompleted = false
-      this.score = 0
-      this.timeLeft = 1800
-      this.startTimer()
-      this.questions = this.getRandomQuestions(this.getQuizBySubjectId(this.$route.params.id), 20)
-      this.$refs.toast.showToast('Bắt đầu làm lại bài thi', 'info')
     },
 
     saveQuizResult() {
@@ -307,6 +273,7 @@ export default {
 
     selectAnswer(index) {
       this.selectedAnswer = index
+      this.answers[this.currentQuestion] = index
       this.saveQuizState()
     },
 
@@ -318,6 +285,8 @@ export default {
         answers: this.answers,
         timeLeft: this.timeLeft,
         subject: this.subject,
+        quizCompleted: this.quizCompleted,
+        score: this.score,
       }
       localStorage.setItem('quizState', JSON.stringify(quizState))
     },
@@ -332,6 +301,8 @@ export default {
         this.answers = state.answers
         this.timeLeft = state.timeLeft
         this.subject = state.subject
+        this.quizCompleted = state.quizCompleted
+        this.score = state.score
         return true
       }
       return false
@@ -339,6 +310,70 @@ export default {
 
     clearQuizState() {
       localStorage.removeItem('quizState')
+      if (this.timer) {
+        clearInterval(this.timer)
+        this.timer = null
+      }
+    },
+
+    lockScroll() {
+      document.body.style.overflow = 'hidden'
+    },
+
+    unlockScroll() {
+      document.body.style.overflow = 'auto'
+    },
+
+    disableInteractions() {
+      document.addEventListener('contextmenu', this.preventDefault)
+      document.addEventListener('keydown', this.preventKeyboardShortcuts)
+      document.addEventListener('selectstart', this.preventDefault)
+      window.addEventListener('popstate', this.preventBrowserBack)
+      history.pushState(null, null, location.href)
+      window.addEventListener('popstate', () => {
+        history.pushState(null, null, location.href)
+      })
+    },
+
+    enableInteractions() {
+      document.removeEventListener('contextmenu', this.preventDefault)
+      document.removeEventListener('keydown', this.preventKeyboardShortcuts)
+      document.removeEventListener('selectstart', this.preventDefault)
+      window.removeEventListener('popstate', this.preventBrowserBack)
+    },
+
+    preventDefault(e) {
+      if (!this.quizCompleted) {
+        e.preventDefault()
+      }
+    },
+
+    preventKeyboardShortcuts(e) {
+      if (!this.quizCompleted) {
+        if (
+          (e.ctrlKey && e.key === 'c') ||
+          (e.ctrlKey && e.key === 'v') ||
+          (e.ctrlKey && e.key === 'a') ||
+          e.key === 'F12' ||
+          e.altKey
+        ) {
+          e.preventDefault()
+        }
+      }
+    },
+
+    preventBrowserBack(event) {
+      event.preventDefault()
+      return false
+    },
+
+    goToQuestion(index) {
+      if (index !== this.currentQuestion) {
+        this.answers[this.currentQuestion] = this.selectedAnswer
+        this.currentQuestion = index
+        this.selectedAnswer = this.answers[index] ?? null
+        this.saveQuizState()
+      }
     },
   },
   created() {
@@ -358,17 +393,40 @@ export default {
         return
       }
 
-      this.questions = this.getRandomQuestions(allQuestions, 20)
+      this.questions = this.getRandomQuestions(allQuestions, 30)
       this.answers = new Array(this.questions.length).fill(null)
     }
 
     this.startTimer()
-
-    window.addEventListener('beforeunload', this.saveQuizState)
+    this.lockScroll()
+    this.disableInteractions()
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = null
+    }
+    this.clearQuizState()
+    next()
   },
   beforeUnmount() {
-    clearInterval(this.timer)
-    window.removeEventListener('beforeunload', this.saveQuizState)
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = null
+    }
+    this.unlockScroll()
+    this.enableInteractions()
+  },
+  watch: {
+    quizCompleted(newValue) {
+      if (newValue) {
+        this.unlockScroll()
+      } else {
+        this.lockScroll()
+      }
+    },
   },
 }
 </script>
+
+<style></style>

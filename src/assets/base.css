@@ -1,11 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700&display=swap');
 :root {
-  --primary-color: black;
-  --secondary-color: #ff7582;
-  --text-color: #333;
-  --gray-light: #f5f5f5;
+  --black: black;
   --white: #ffffff;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --border-color: #e8ebed;
+  --orange: #ffc107;
+  --orange-light: #fff4ed;
+  --orange-dark: #fd7608;
+  --green: #28a745;
+  --green-dark: #155724;
+  --green-light: #d4edda;
+  --blue: #0056b3;
+  --red-dark: #dc3545;
+  --shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   --mobile: 576px;
   --tablet: 768px;
   --desktop: 992px;

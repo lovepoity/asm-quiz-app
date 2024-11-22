@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { currentUser } from '@/utils/eventBus'
+import { currentUser } from '@/assets/eventBus'
 
 export default {
   data() {
@@ -119,21 +119,16 @@ export default {
             password: this.newPassword || students[studentIndex].password,
           }
 
-          // Cập nhật trong danh sách students
           students[studentIndex] = updatedStudent
           localStorage.setItem('students', JSON.stringify(students))
 
-          // Cập nhật thông tin user hiện tại
           localStorage.setItem('user', JSON.stringify(updatedStudent))
           currentUser.value = updatedStudent
 
           this.$root.$refs.toast.showToast('Cập nhật thông tin thành công!', 'success')
-
-          // Reset mật khẩu fields
           this.newPassword = ''
           this.confirmPassword = ''
 
-          // Trigger storage event để cập nhật UI
           window.dispatchEvent(new Event('storage'))
         }
       } catch (error) {
