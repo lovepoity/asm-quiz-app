@@ -14,7 +14,7 @@
         <div class="subject__content">
           <h5 class="subject__title">{{ subject.Name }}</h5>
           <div class="subject__block">
-            <p class="subject__id">Subject ID: {{ subject.Id }}</p>
+            <p class="subject__id">ID: {{ subject.Id }}</p>
             <button class="subject__button" @click="startQuiz(subject)">Start quiz</button>
           </div>
         </div>

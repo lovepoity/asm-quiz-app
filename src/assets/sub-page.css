@@ -153,14 +153,14 @@
 }
 
 .quiz-results__stat-card {
+  padding: 24px 0;
   background-color: #f8f9fa;
-  padding: 16px;
   flex: 1;
   text-align: center;
 }
 
 .quiz-results__stat-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   margin-bottom: 8px;
 }
@@ -168,6 +168,7 @@
 .quiz-results__stat-value {
   font-size: 16px;
   font-weight: 600;
+  margin-bottom: 0;
 }
 
 /* Quiz detail */
