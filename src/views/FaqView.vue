@@ -1,71 +1,44 @@
 <template>
-  <div class="faq padding-top">
-    <section class="faq-hero py-5">
-      <div class="container text-center text-white">
-        <h1 class="display-4 fw-bold mb-4">Câu hỏi thường gặp</h1>
-        <p class="lead">Tìm câu trả lời cho những thắc mắc của bạn</p>
-      </div>
-    </section>
-
-    <div class="container py-5">
-      <div class="row justify-content-center mb-5">
-        <div class="col-lg-6">
-          <div class="search-box">
-            <input
-              type="text"
-              class="form-control form-control-lg"
-              placeholder="Tìm kiếm câu hỏi..."
-              v-model="searchQuery"
-            />
-            <i class="bi bi-search"></i>
+  <div class="faq">
+    <div class="py-3">
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="faq__header text-center mb-5">
+            <h1 class="faq__title">Câu hỏi thường gặp</h1>
+            <p class="faq__subtitle">Tìm câu trả lời cho những thắc mắc phổ biến của bạn</p>
           </div>
-        </div>
-      </div>
 
-      <div class="row mb-5">
-        <div class="col-md-3 mb-3" v-for="cat in categories" :key="cat.id">
-          <div
-            class="category-card p-3 rounded-4 text-center"
-            :class="{ active: selectedCategory === cat.id }"
-            @click="selectedCategory = cat.id"
-          >
-            <i :class="cat.icon + ' fs-3 mb-2'"></i>
-            <h5 class="mb-0">{{ cat.name }}</h5>
-            <small class="text-muted">{{ cat.count }} câu hỏi</small>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="faqAccordion">
-        <div
-          class="accordion-item rounded-4 mb-3"
-          v-for="(faq, index) in filteredFaqs"
-          :key="index"
-        >
-          <h2 class="accordion-header">
-            <button
-              class="accordion-button collapsed rounded-4"
-              type="button"
-              data-bs-toggle="collapse"
-              :data-bs-target="'#faq' + index"
-            >
-              {{ faq.question }}
-            </button>
-          </h2>
-          <div
-            :id="'faq' + index"
-            class="accordion-collapse collapse"
-            data-bs-parent="#faqAccordion"
-          >
-            <div class="accordion-body">
-              {{ faq.answer }}
+          <div class="faq__content">
+            <div class="accordion" id="faqAccordion">
+              <div class="accordion-item" v-for="(item, index) in faqItems" :key="index">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button"
+                    :class="{ collapsed: !item.isOpen }"
+                    type="button"
+                    @click="toggleAccordion(index)"
+                  >
+                    {{ item.question }}
+                  </button>
+                </h2>
+                <div class="accordion-collapse collapse" :class="{ show: item.isOpen }">
+                  <div class="accordion-body">
+                    {{ item.answer }}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="text-center mt-5 pt-4">
-        <h3 class="fw-bold mb-4">Vẫn chưa tìm thấy câu trả lời?</h3>
-        <router-link to="/contact" class="btn btn-primary btn-lg"> Liên hệ hỗ trợ </router-link>
+          <div class="faq__contact text-center mt-5">
+            <h3>Không tìm thấy câu trả lời bạn cần?</h3>
+            <p>Hãy liên hệ với chúng tôi để được hỗ trợ</p>
+            <router-link to="/contact" class="faq__contact-btn">
+              <i class="bi bi-envelope me-2"></i>
+              Liên hệ hỗ trợ
+            </router-link>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -76,134 +49,171 @@ export default {
   name: 'FaqView',
   data() {
     return {
-      searchQuery: '',
-      selectedCategory: 'general',
-      categories: [
-        { id: 'general', name: 'Chung', icon: 'bi bi-info-circle', count: 5 },
-        { id: 'courses', name: 'Khóa học', icon: 'bi bi-book', count: 8 },
-        { id: 'payment', name: 'Thanh toán', icon: 'bi bi-credit-card', count: 6 },
-        { id: 'technical', name: 'Kỹ thuật', icon: 'bi bi-gear', count: 4 },
-      ],
-      faqs: [
+      faqItems: [
         {
-          category: 'general',
           question: 'Sunao Education là gì?',
-          answer: 'Sunao Education là nền tảng học tập trực tuyến hàng đầu tại Việt Nam...',
+          answer:
+            'Sunao Education là nền tảng thi trắc nghiệm IT trực tuyến, cung cấp hơn 500+ bài thi về lập trình, giúp người học đánh giá và nâng cao kiến thức IT một cách hiệu quả.',
+          isOpen: true,
         },
         {
-          category: 'courses',
-          question: 'Làm sao để bắt đầu một khóa học?',
-          answer: 'Bạn có thể dễ dàng bắt đầu khóa học bằng cách...',
+          question: 'Làm thế nào để bắt đầu một bài thi?',
+          answer:
+            'Để bắt đầu bài thi, bạn cần đăng nhập vào tài khoản, sau đó chọn môn học mong muốn và nhấn nút "Bắt đầu thi". Mỗi bài thi có 30 câu hỏi và thời gian làm bài là 30 phút.',
+          isOpen: false,
         },
         {
-          category: 'payment',
-          question: 'Các phương thức thanh toán được hỗ trợ?',
-          answer: 'Chúng tôi hỗ trợ nhiều phương thức thanh toán như...',
+          question: 'Làm sao để xem kết quả bài thi?',
+          answer:
+            'Sau khi hoàn thành bài thi, hệ thống sẽ tự động chấm điểm và hiển thị kết quả chi tiết. Bạn có thể xem lại các câu trả lời đúng/sai và giải thích cho từng câu hỏi.',
+          isOpen: false,
+        },
+        {
+          question: 'Tôi có thể thi lại một bài thi không?',
+          answer:
+            'Có, bạn có thể thi lại bất kỳ bài thi nào không giới hạn số lần. Mỗi lần thi sẽ có các câu hỏi được chọn ngẫu nhiên từ ngân hàng đề.',
+          isOpen: false,
+        },
+        {
+          question: 'Làm sao để theo dõi tiến độ học tập?',
+          answer:
+            'Bạn có thể xem thống kê chi tiết về kết quả học tập trong phần "Kết quả thi". Hệ thống sẽ hiển thị điểm số, thời gian làm bài và tiến độ hoàn thành của từng môn học.',
+          isOpen: false,
+        },
+        {
+          question: 'Tôi quên mật khẩu phải làm sao?',
+          answer:
+            'Bạn có thể sử dụng chức năng "Quên mật khẩu" trên trang đăng nhập. Nhập email đã đăng ký, hệ thống sẽ gửi link đặt lại mật khẩu qua email của bạn.',
+          isOpen: false,
         },
       ],
     }
   },
-  computed: {
-    filteredFaqs() {
-      return this.faqs.filter((faq) => {
-        const matchCategory =
-          this.selectedCategory === 'all' || faq.category === this.selectedCategory
-        const matchSearch = faq.question.toLowerCase().includes(this.searchQuery.toLowerCase())
-        return matchCategory && matchSearch
-      })
+  methods: {
+    toggleAccordion(index) {
+      this.faqItems[index].isOpen = !this.faqItems[index].isOpen
     },
   },
 }
 </script>
 
 <style scoped>
-.faq-hero {
-  background: linear-gradient(45deg, #f73232, #fd7608);
-  position: relative;
+.faq {
+  margin-top: 70px;
+  font-size: 1.4rem;
+}
+
+.faq__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.faq__subtitle {
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+.faq__content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.accordion-item {
+  border: 1px solid var(--border-color);
+  border-radius: 8px !important;
+  margin-bottom: 1rem;
   overflow: hidden;
-  margin-bottom: 30px;
 }
 
-.faq-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-size: cover;
-  opacity: 0.1;
-}
-
-.search-box {
-  position: relative;
-}
-
-.search-box i {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #666;
-}
-
-.category-card {
+.accordion-button {
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 1.5rem;
   background: white;
-  border: 2px solid #e8e8e8;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.category-card:hover {
-  border-color: #f73232;
-  background: #fff5f5;
-}
-
-.category-card.active {
-  border-color: #f73232;
-  background: linear-gradient(45deg, #f73232, #fd7608);
-  color: white;
-}
-
-.category-card.active small {
-  color: white !important;
+  border: none;
 }
 
 .accordion-button:not(.collapsed) {
-  background: linear-gradient(45deg, #f73232, #fd7608);
-  color: white;
+  color: var(--orange-dark);
+  background: var(--orange-light);
+  box-shadow: none;
 }
 
 .accordion-button:focus {
-  box-shadow: 0 0 0 0.25rem rgba(247, 50, 50, 0.25);
+  box-shadow: none;
+  border-color: var(--border-color);
 }
 
-.btn-primary {
-  background: linear-gradient(to right, #f73232 0%, #fd7608 50%, #f73232 100%);
-  background-size: 200% auto;
-  border: none;
-  transition: all 0.5s ease;
-  padding: 0.8rem 2rem;
+.accordion-button::after {
+  background-size: 1.2rem;
+  transition: all 0.3s ease;
 }
 
-.btn-primary:hover {
-  background-position: right center;
+.accordion-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #6c757d;
+  padding: 1.5rem;
+  background: white;
 }
 
-@media (max-width: 576px) {
-  .search-box {
-    margin-bottom: 1.5rem;
-  }
+.faq__contact {
+  margin-top: 4rem;
+}
 
-  .category-card {
-    margin-bottom: 1rem;
+.faq__contact h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.faq__contact p {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+}
+
+.faq__contact-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: var(--orange-dark);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.faq__contact-btn:hover {
+  background: var(--orange-light);
+  color: var(--orange-dark);
+}
+
+@media (max-width: 768px) {
+  .faq__title {
+    font-size: 2rem;
   }
 
   .accordion-button {
-    padding: 0.75rem;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .accordion-body {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+
+  .faq__contact h3 {
+    font-size: 1.3rem;
+  }
+
+  .faq__contact p {
+    font-size: 1rem;
   }
 }
 </style>

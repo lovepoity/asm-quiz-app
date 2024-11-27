@@ -1,114 +1,152 @@
 <template>
-  <div class="contact padding-top">
-    <!-- Hero Section -->
-    <section class="contact-hero py-5 mb-5">
-      <div class="container text-center text-white">
-        <h1 class="display-4 fw-bold mb-4">Liên hệ với chúng tôi</h1>
-        <p class="lead">Chúng tôi luôn sẵn sàng hỗ trợ bạn 24/7</p>
-      </div>
-    </section>
-
-    <div class="container pb-5">
-      <div class="row">
-        <div class="col-lg-4 mb-4">
-          <div class="contact-info p-4 rounded-4 shadow-sm">
-            <h3 class="fw-bold mb-4">Thông tin liên hệ</h3>
-
-            <div class="d-flex align-items-center mb-4">
-              <div class="contact-icon me-3">
-                <i class="bi bi-geo-alt"></i>
-              </div>
-              <div>
-                <h5 class="fw-bold mb-1">Địa chỉ</h5>
-                <p class="mb-0 text-muted">137 Nguyễn Thị Thập, Liên Chiểu, Đà Nẵng</p>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center mb-4">
-              <div class="contact-icon me-3">
-                <i class="bi bi-telephone"></i>
-              </div>
-              <div>
-                <h5 class="fw-bold mb-1">Điện thoại</h5>
-                <p class="mb-0 text-muted">0943.090.202</p>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center mb-4">
-              <div class="contact-icon me-3">
-                <i class="bi bi-envelope"></i>
-              </div>
-              <div>
-                <h5 class="fw-bold mb-1">Email</h5>
-                <p class="mb-0 text-muted">support@sunao.edu.vn</p>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center">
-              <div class="contact-icon me-3">
-                <i class="bi bi-clock"></i>
-              </div>
-              <div>
-                <h5 class="fw-bold mb-1">Giờ làm việc</h5>
-                <p class="mb-0 text-muted">Thứ 2 - Chủ nhật: 8:00 - 22:00</p>
-              </div>
-            </div>
+  <div class="contact">
+    <div class="py-3">
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="contact__header text-center mb-5">
+            <h1 class="contact__title">Liên hệ với chúng tôi</h1>
+            <p class="contact__subtitle">Bạn có câu hỏi? Chúng tôi luôn sẵn sàng hỗ trợ bạn 24/7</p>
           </div>
-        </div>
 
-        <div class="col-lg-8">
-          <div class="contact-form p-4 rounded-4 shadow-sm">
-            <h3 class="fw-bold mb-4">Gửi tin nhắn cho chúng tôi</h3>
-
-            <form @submit.prevent="handleSubmit">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Họ và tên</label>
-                  <input type="text" class="form-control" v-model="form.name" required />
+          <div class="row g-4">
+            <!-- Contact Info -->
+            <div class="col-md-4">
+              <div class="contact__info">
+                <div class="contact__info-item">
+                  <div class="contact__info-icon">
+                    <i class="bi bi-geo-alt"></i>
+                  </div>
+                  <h3>Địa chỉ</h3>
+                  <p>Số 1, ngõ 41, Trần Duy Hưng, Cầu Giấy, Hà Nội</p>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Email</label>
-                  <input type="email" class="form-control" v-model="form.email" required />
+
+                <div class="contact__info-item">
+                  <div class="contact__info-icon">
+                    <i class="bi bi-envelope"></i>
+                  </div>
+                  <h3>Email</h3>
+                  <p>info@sunao.edu.vn</p>
+                </div>
+
+                <div class="contact__info-item">
+                  <div class="contact__info-icon">
+                    <i class="bi bi-telephone"></i>
+                  </div>
+                  <h3>Điện thoại</h3>
+                  <p>0943 09 0202</p>
+                </div>
+
+                <div class="contact__social">
+                  <a href="#" class="contact__social-link">
+                    <i class="bi bi-facebook"></i>
+                  </a>
+                  <a href="#" class="contact__social-link">
+                    <i class="bi bi-youtube"></i>
+                  </a>
+                  <a href="#" class="contact__social-link">
+                    <i class="bi bi-linkedin"></i>
+                  </a>
+                  <a href="#" class="contact__social-link">
+                    <i class="bi bi-twitter"></i>
+                  </a>
                 </div>
               </div>
+            </div>
 
-              <div class="mb-3">
-                <label class="form-label">Số điện thoại</label>
-                <input type="tel" class="form-control" v-model="form.phone" />
+            <!-- Contact Form -->
+            <div class="col-md-8">
+              <div class="contact__form-wrapper">
+                <form class="contact__form" @submit.prevent="handleSubmit">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label">Họ và tên</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          v-model="form.name"
+                          required
+                          placeholder="Nhập họ và tên"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          v-model="form.email"
+                          required
+                          placeholder="Nhập email"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label">Số điện thoại</label>
+                        <input
+                          type="tel"
+                          class="form-control"
+                          v-model="form.phone"
+                          placeholder="Nhập số điện thoại"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-label">Chủ đề</label>
+                        <select class="form-select" v-model="form.subject">
+                          <option value="general">Chung</option>
+                          <option value="technical">Kỹ thuật</option>
+                          <option value="billing">Thanh toán</option>
+                          <option value="other">Khác</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label class="form-label">Nội dung</label>
+                        <textarea
+                          class="form-control"
+                          rows="5"
+                          v-model="form.message"
+                          required
+                          placeholder="Nhập nội dung tin nhắn"
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <button type="submit" class="contact__submit-btn">
+                        <i class="bi bi-send me-2"></i>
+                        Gửi tin nhắn
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
-
-              <div class="mb-3">
-                <label class="form-label">Chủ đề</label>
-                <select class="form-select" v-model="form.subject">
-                  <option value="general">Thông tin chung</option>
-                  <option value="support">Hỗ trợ kỹ thuật</option>
-                  <option value="billing">Thanh toán</option>
-                  <option value="other">Khác</option>
-                </select>
-              </div>
-
-              <div class="mb-4">
-                <label class="form-label">Nội dung tin nhắn</label>
-                <textarea class="form-control" rows="5" v-model="form.message" required></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-lg">Gửi tin nhắn</button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <section class="map mt-5">
+    <!-- Google Map -->
+    <div class="contact__map">
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.8025459042683!2d108.1670675!3d16.0750095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219b509a30cfb%3A0x96e408c6b0419760!2zMTM3IE5ndXnhu4VuIFRo4buLIFRo4bqtcCwgVGhhbmggS2jDqiBUw6J5LCBMacOqbiBDaGnhu4N1LCDEkMOgIE7hurVuZyA1NTAwMDAsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1624271371407!5m2!1svi!2s"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.4855345714517!2d105.79399470000001!3d21.007051100000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aca6fcc5b62b%3A0x5b99cce1def5a9a9!2zVHLhuqduIER1eSBIxrBuZywgQ-G6p3UgR2nhuqV5LCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1647916415016!5m2!1svi!2s"
         width="100%"
         height="450"
         style="border: 0"
         allowfullscreen=""
         loading="lazy"
       ></iframe>
-    </section>
+    </div>
   </div>
 </template>
 
@@ -143,91 +181,152 @@ export default {
 </script>
 
 <style scoped>
-.contact-hero {
-  background: linear-gradient(45deg, #f73232, #fd7608);
-  position: relative;
-  overflow: hidden;
+.contact {
+  margin-top: 70px;
+  font-size: 1.4rem;
 }
 
-.contact-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-size: cover;
-  opacity: 0.1;
+.contact__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 1rem;
 }
 
-.contact-info,
-.contact-form {
+.contact__subtitle {
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+.contact__info {
   background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
   height: 100%;
 }
 
-.contact-icon {
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(45deg, #f73232, #fd7608);
-  border-radius: 50%;
+.contact__info-item {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.contact__info-item:last-child {
+  margin-bottom: 1.5rem;
+}
+
+.contact__info-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  border-radius: 50%;
+  background: var(--orange-light);
+}
+
+.contact__info-icon i {
+  font-size: 1.5rem;
+  color: var(--orange-dark);
+}
+
+.contact__info-item h3 {
   font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.contact__info-item p {
+  color: #6c757d;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.contact__social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.contact__social-link {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--orange-light);
+  color: var(--orange-dark);
+  transition: all 0.3s ease;
+}
+
+.contact__social-link:hover {
+  background: var(--orange-dark);
+  color: white;
+}
+
+.contact__form-wrapper {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
 }
 
 .form-control,
 .form-select {
-  border: 2px solid #e8e8e8;
-  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  padding: 9px 20px;
   border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
 .form-control:focus,
 .form-select:focus {
-  border-color: #f73232;
-  box-shadow: 0 0 0 0.25rem rgba(247, 50, 50, 0.25);
+  border-color: var(--orange-dark);
+  box-shadow: none;
 }
 
-.btn-primary {
-  background: linear-gradient(to right, #f73232 0%, #fd7608 50%, #f73232 100%);
-  background-size: 200% auto;
+.contact__submit-btn {
+  width: 100%;
+  padding: 9px 20px;
   border: none;
-  transition: all 0.5s ease;
-  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: var(--orange-dark);
+  color: white;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
 }
 
-.btn-primary:hover {
-  background-position: right center;
+.contact__submit-btn:hover {
+  background: var(--orange-light);
+  color: var(--orange-dark);
 }
 
-.map {
-  filter: grayscale(100%);
-  transition: filter 0.3s;
+.contact__map {
+  margin-top: 5rem;
 }
 
-.map:hover {
-  filter: grayscale(0%);
-}
+@media (max-width: 768px) {
+  .contact__title {
+    font-size: 2rem;
+  }
 
-@media (max-width: 576px) {
-  .contact-info {
+  .contact__info {
     margin-bottom: 2rem;
   }
 
-  .contact-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
-
-  .map {
-    height: 300px;
+  .contact__form-wrapper {
+    padding: 1.5rem;
   }
 }
 </style>

@@ -1,142 +1,110 @@
 <template>
-  <div class="home padding-top">
-    <section class="hero py-5">
+  <div class="home">
+    <!-- Hero Section với gradient overlay -->
+    <section class="home__hero">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-6">
-            <h1 class="display-4 fw-bold mb-4">Học tập trực tuyến cùng Sunao Education</h1>
-            <p class="lead mb-4">Nền tảng học tập trực tuyến với hơn 50,000 học viên tin dùng</p>
-            <button class="btn btn-light btn-lg">Bắt đầu học ngay</button>
+            <h1 class="home__title">
+              Nền tảng thi trắc nghiệm
+              <span class="home__title-highlight">IT hàng đầu</span>
+            </h1>
+            <p class="home__subtitle">
+              Sunao Education cung cấp hơn
+              <span class="text-primary">500+ bài thi trắc nghiệm</span> về lập trình, giúp bạn đánh
+              giá và nâng cao kiến thức IT một cách hiệu quả.
+            </p>
+            <router-link to="/subjects" class="home__cta-button">
+              <span>Bắt đầu ngay</span>
+              <i class="bi bi-arrow-right"></i>
+            </router-link>
+            <div class="home__hero-stats">
+              <div class="home__hero-stat">
+                <i class="bi bi-people-fill"></i>
+                <span>10K+ Học viên</span>
+              </div>
+              <div class="home__hero-stat">
+                <i class="bi bi-star-fill"></i>
+                <span>4.8/5 Đánh giá</span>
+              </div>
+            </div>
           </div>
           <div class="col-lg-6">
-            <img
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800"
-              alt="Hero"
-              class="img-fluid rounded-4 shadow-lg hero__image"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="stats py-5">
-      <div class="container">
-        <div class="row text-center">
-          <div class="col-md-3 mb-4">
-            <div class="stats__card p-4 rounded-4 shadow-sm">
-              <div class="h1 fw-bold text-primary mb-2">50K+</div>
-              <div class="text-muted">Học viên</div>
-            </div>
-          </div>
-          <div class="col-md-3 mb-4">
-            <div class="stats__card p-4 rounded-4 shadow-sm">
-              <div class="h1 fw-bold text-primary mb-2">100+</div>
-              <div class="text-muted">Khóa học</div>
-            </div>
-          </div>
-          <div class="col-md-3 mb-4">
-            <div class="stats__card p-4 rounded-4 shadow-sm">
-              <div class="h1 fw-bold text-primary mb-2">200+</div>
-              <div class="text-muted">Bài giảng</div>
-            </div>
-          </div>
-          <div class="col-md-3 mb-4">
-            <div class="stats__card p-4 rounded-4 shadow-sm">
-              <div class="h1 fw-bold text-primary mb-2">98%</div>
-              <div class="text-muted">Đánh giá tích cực</div>
+            <div class="home__hero-image-wrapper">
+              <img
+                src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg"
+                alt="Hero"
+                class="home__hero-image"
+              />
+              <div class="home__hero-badge">
+                <span>500+</span>
+                <small>Bài thi</small>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="courses py-5 bg-light">
+    <!-- Features Section với animation -->
+    <section class="home__features">
       <div class="container">
-        <h2 class="text-center fw-bold mb-2">Khóa học nổi bật</h2>
-        <p class="text-center text-muted mb-5">
-          Khám phá các khóa học chất lượng cao từ các chuyên gia
-        </p>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 border-0 shadow-sm rounded-4 course-card">
-              <div class="card-img-wrapper">
-                <img
-                  src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500"
-                  class="card-img-top"
-                  alt="Java"
-                />
-                <div class="card-overlay">
-                  <button class="btn btn-light">Xem chi tiết</button>
-                </div>
+        <h2 class="home__section-title">
+          Tại sao chọn <span class="text-primary">Sunao Education</span>?
+        </h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="home__feature-card">
+              <div class="home__feature-icon">
+                <i class="bi bi-collection-play"></i>
               </div>
-              <div class="card-body p-4">
-                <div class="d-flex align-items-center mb-3">
-                  <span class="badge bg-primary me-2">Bestseller</span>
-                  <span class="text-muted small">4.8 ⭐ (2.5k reviews)</span>
-                </div>
-                <h5 class="card-title fw-bold">Lập trình Java cơ bản</h5>
-                <p class="card-text text-muted">
-                  Học lập trình Java từ cơ bản đến nâng cao với 100+ bài tập thực hành.
-                </p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="fw-bold text-primary">1,299,000₫</span>
-                  <button class="btn btn-primary">Đăng ký ngay</button>
-                </div>
-              </div>
+              <h3>500+ Bài thi</h3>
+              <p>Kho bài thi đa dạng, cập nhật liên tục với nhiều chủ đề IT khác nhau</p>
             </div>
           </div>
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 border-0 shadow-sm rounded-4 course-card">
-              <div class="card-img-wrapper">
-                <img
-                  src="https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=500"
-                  class="card-img-top"
-                  alt="JavaScript"
-                />
-                <div class="card-overlay">
-                  <button class="btn btn-light">Xem chi tiết</button>
-                </div>
+          <div class="col-md-4">
+            <div class="home__feature-card">
+              <div class="home__feature-icon">
+                <i class="bi bi-clock-history"></i>
               </div>
-              <div class="card-body p-4">
-                <div class="d-flex align-items-center mb-3">
-                  <span class="badge bg-primary me-2">Bestseller</span>
-                  <span class="text-muted small">4.8 ⭐ (2.5k reviews)</span>
-                </div>
-                <h5 class="card-title fw-bold">JavaScript & ReactJS</h5>
-                <p class="card-text text-muted">
-                  Làm chủ JavaScript và xây dựng ứng dụng web với ReactJS.
-                </p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="fw-bold text-primary">1,299,000₫</span>
-                  <button class="btn btn-primary">Đăng ký ngay</button>
-                </div>
-              </div>
+              <h3>Thi mọi lúc</h3>
+              <p>Làm bài thi online 24/7, kết quả và đáp án chi tiết ngay sau khi hoàn thành</p>
             </div>
           </div>
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 border-0 shadow-sm rounded-4 course-card">
-              <div class="card-img-wrapper">
-                <img
-                  src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500"
-                  class="card-img-top"
-                  alt="Python"
-                />
-                <div class="card-overlay">
-                  <button class="btn btn-light">Xem chi tiết</button>
+          <div class="col-md-4">
+            <div class="home__feature-card">
+              <div class="home__feature-icon">
+                <i class="bi bi-graph-up"></i>
+              </div>
+              <h3>Theo dõi tiến độ</h3>
+              <p>Thống kê chi tiết kết quả học tập, đánh giá sự tiến bộ qua từng bài thi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Subjects với hiệu ứng hover đẹp -->
+    <section class="home__subjects">
+      <div class="container">
+        <h2 class="home__section-title">Chủ đề phổ biến</h2>
+        <div class="row g-4">
+          <div class="col-md-3" v-for="subject in popularSubjects" :key="subject.id">
+            <div class="home__subject-card">
+              <div class="home__subject-image-wrapper">
+                <img :src="subject.image" :alt="subject.name" class="home__subject-image" />
+                <div class="home__subject-overlay">
+                  <router-link :to="'/quiz/' + subject.id" class="home__subject-button">
+                    Làm bài thi ngay
+                  </router-link>
                 </div>
               </div>
-              <div class="card-body p-4">
-                <div class="d-flex align-items-center mb-3">
-                  <span class="badge bg-primary me-2">Bestseller</span>
-                  <span class="text-muted small">4.8 ⭐ (2.5k reviews)</span>
-                </div>
-                <h5 class="card-title fw-bold">Python cho AI</h5>
-                <p class="card-text text-muted">
-                  Học Python và ứng dụng trong AI, Machine Learning.
-                </p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="fw-bold text-primary">1,299,000₫</span>
-                  <button class="btn btn-primary">Đăng ký ngay</button>
+              <div class="home__subject-content">
+                <h4>{{ subject.name }}</h4>
+                <p>{{ subject.description }}</p>
+                <div class="home__subject-meta">
+                  <span><i class="bi bi-clock"></i> 30 phút</span>
+                  <span><i class="bi bi-question-circle"></i> 30 câu</span>
                 </div>
               </div>
             </div>
@@ -145,51 +113,47 @@
       </div>
     </section>
 
-    <section class="benefits py-5">
+    <!-- Stats Section với animation số -->
+    <section class="home__stats">
       <div class="container">
-        <h2 class="text-center fw-bold mb-2">Tại sao chọn Sunao Education?</h2>
-        <p class="text-center text-muted mb-5">
-          Những lý do khiến hơn 50,000 học viên tin tưởng chúng tôi
-        </p>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="benefit-card text-center p-4 rounded-4 shadow-sm">
-              <div class="benefit-icon mb-3">
-                <i class="bi bi-laptop"></i>
-              </div>
-              <h4 class="fw-bold mb-3">Học mọi lúc mọi nơi</h4>
-              <p class="text-muted mb-0">Truy cập và học tập mọi lúc mọi nơi trên mọi thiết bị</p>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="benefit-card text-center p-4 rounded-4 shadow-sm">
-              <div class="benefit-icon mb-3">
+        <div class="row g-4">
+          <div class="col-md-3">
+            <div class="home__stat-card">
+              <div class="home__stat-icon">
                 <i class="bi bi-people"></i>
               </div>
-              <h4 class="fw-bold mb-3">Giảng viên chất lượng</h4>
-              <p class="text-muted mb-0">
-                Đội ngũ giảng viên giàu kinh nghiệm từ các doanh nghiệp lớn
-              </p>
+              <h3>10K+</h3>
+              <p>Học viên</p>
             </div>
           </div>
-          <div class="col-md-4 mb-4">
-            <div class="benefit-card text-center p-4 rounded-4 shadow-sm">
-              <div class="benefit-icon mb-3">
-                <i class="bi bi-trophy"></i>
+          <div class="col-md-3">
+            <div class="home__stat-card">
+              <div class="home__stat-icon">
+                <i class="bi bi-journal-check"></i>
               </div>
-              <h4 class="fw-bold mb-3">Chứng chỉ giá trị</h4>
-              <p class="text-muted mb-0">Nhận chứng chỉ có giá trị sau khi hoàn thành khóa học</p>
+              <h3>500+</h3>
+              <p>Bài thi</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="home__stat-card">
+              <div class="home__stat-icon">
+                <i class="bi bi-book"></i>
+              </div>
+              <h3>50+</h3>
+              <p>Chủ đề</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="home__stat-card">
+              <div class="home__stat-icon">
+                <i class="bi bi-star"></i>
+              </div>
+              <h3>4.8</h3>
+              <p>Đánh giá</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="cta py-5">
-      <div class="container text-center">
-        <h2 class="fw-bold mb-4">Sẵn sàng để bắt đầu hành trình học tập?</h2>
-        <p class="lead mb-4">Đăng ký ngay hôm nay để nhận ưu đãi đặc biệt</p>
-        <button class="btn btn-light btn-lg px-5">Đăng ký ngay</button>
       </div>
     </section>
   </div>
@@ -198,61 +162,219 @@
 <script>
 export default {
   name: 'HomeView',
+  data() {
+    return {
+      popularSubjects: [
+        {
+          id: 'JAAV',
+          name: 'Java Core',
+          image: 'https://placehold.co/300x200/2fbdff/ffffff?text=Java',
+          description: 'Kiểm tra kiến thức nền tảng về Java Core',
+        },
+        {
+          id: 'JSPR',
+          name: 'JavaScript',
+          image: 'https://placehold.co/300x200/ffd700/ffffff?text=JavaScript',
+          description: 'Bài thi về JavaScript và ES6+',
+        },
+        {
+          id: 'PHPP',
+          name: 'PHP',
+          image: 'https://placehold.co/300x200/8892bf/ffffff?text=PHP',
+          description: 'Trắc nghiệm PHP từ cơ bản đến nâng cao',
+        },
+        {
+          id: 'DBBS',
+          name: 'Database',
+          image: 'https://placehold.co/300x200/ff6b6b/ffffff?text=Database',
+          description: 'Kiến thức về SQL và quản trị cơ sở dữ liệu',
+        },
+      ],
+    }
+  },
 }
 </script>
 
 <style scoped>
-.hero {
-  background: linear-gradient(45deg, #f73232, #fd7608);
-  color: white;
+.home__hero {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   position: relative;
   overflow: hidden;
 }
 
-.hero::before {
-  content: '';
+.home__title {
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  background: linear-gradient(45deg, var(--orange-dark), #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.home__title-highlight {
+  color: var(--orange-dark);
+  position: relative;
+  display: inline-block;
+}
+
+.home__subtitle {
+  font-size: 1.25rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.home__hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.home__hero-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  color: #495057;
+}
+
+.home__hero-stat i {
+  color: var(--orange-dark);
+}
+
+.home__hero-image-wrapper {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.home__hero-image {
+  width: 100%;
+  height: auto;
+  transform: scale(1.05);
+  transition: transform 0.5s ease;
+}
+
+.home__hero-image-wrapper:hover .home__hero-image {
+  transform: scale(1.1);
+}
+
+.home__hero-badge {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-size: cover;
-  opacity: 0.1;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.hero__image {
-  transform: perspective(1000px) rotateY(-15deg);
-  transition: transform 0.5s;
+.home__hero-badge span {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--orange-dark);
 }
 
-.hero__image:hover {
-  transform: perspective(1000px) rotateY(0);
+.home__hero-badge small {
+  color: #6c757d;
 }
 
-.stats__card {
+.home__cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(45deg, var(--orange-dark), #ff6b6b);
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(253, 118, 8, 0.3);
+}
+
+.home__cta-button:hover {
+  box-shadow: 0 6px 20px rgba(253, 118, 8, 0.4);
+}
+
+.home__features {
+  padding: 100px 0;
   background: white;
-  transition: transform 0.3s;
 }
 
-.course-card {
+.home__feature-card {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.home__feature-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--orange-light);
+}
+
+.home__feature-icon i {
+  font-size: 2.5rem;
+  color: var(--orange-dark);
+}
+
+.home__feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #2d3436;
+}
+
+.home__feature-card p {
+  color: #636e72;
+  line-height: 1.6;
+}
+
+.home__section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 4rem;
+  color: #2d3436;
+}
+
+.home__subject-card {
+  background: white;
+  border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  transition: all 0.3s ease;
 }
 
-.card-img-wrapper {
+.home__subject-image-wrapper {
   position: relative;
   overflow: hidden;
 }
 
-.card-img-top {
+.home__subject-image {
+  width: 100%;
   height: 200px;
   object-fit: cover;
-  transition: transform 0.5s;
+  transition: transform 0.5s ease;
 }
 
-.card-overlay {
+.home__subject-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -263,101 +385,130 @@ export default {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease;
 }
 
-.course-card:hover .card-img-top {
-  transform: scale(1.1);
-}
-
-.course-card:hover .card-overlay {
+.home__subject-card:hover .home__subject-overlay {
   opacity: 1;
 }
 
-.benefit-card {
+.home__subject-card:hover .home__subject-image {
+  transform: scale(1.1);
+}
+
+.home__subject-content {
+  padding: 1.5rem;
+}
+
+.home__subject-content h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2d3436;
+}
+
+.home__subject-content p {
+  color: #636e72;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  min-height: 60px;
+}
+
+.home__subject-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #b2bec3;
+  font-size: 0.9rem;
+}
+
+.home__subject-meta i {
+  margin-right: 0.3rem;
+}
+
+.home__subject-button {
+  padding: 0.8rem 1.5rem;
+  background: var(--orange-dark);
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.home__subject-button:hover {
   background: white;
-  transition: all 0.3s;
+  color: var(--orange-dark);
 }
 
-.benefit-card:hover {
-  background: linear-gradient(45deg, #f73232, #fd7608);
-  color: white !important;
+.home__stats {
+  padding: 80px 0;
+  background: #f8f9fa;
 }
 
-.benefit-card:hover p {
-  color: white !important;
+.home__stat-card {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
 }
 
-.benefit-icon {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(45deg, #f73232, #fd7608);
-  border-radius: 50%;
+.home__stat-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  color: white;
-  font-size: 2rem;
-  transition: all 0.3s;
+  border-radius: 50%;
+  background: var(--orange-light);
 }
 
-.benefit-card:hover .benefit-icon {
-  background: white;
-  color: #f73232;
+.home__stat-icon i {
+  font-size: 1.8rem;
+  color: var(--orange-dark);
 }
 
-.btn-primary {
-  background: linear-gradient(to right, #f73232 0%, #fd7608 50%, #f73232 100%);
-  background-size: 200% auto;
-  border: none;
-  transition: all 0.5s ease;
+.home__stat-card h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--orange-dark);
+  margin-bottom: 0.5rem;
 }
 
-.btn-primary:hover {
-  background-position: right center;
-}
-
-.cta {
-  background: linear-gradient(45deg, #f73232, #fd7608);
-  color: white;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="0.1" d="M0,160L48,170.7C96,181,192,203,288,208C384,213,480,203,576,170.7C672,139,768,85,864,80C960,75,1056,117,1152,133.3C1248,149,1344,139,1392,133.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-size: cover;
-  opacity: 0.1;
-}
-
-@media (max-width: 576px) {
-  .hero__image {
-    margin-top: 2rem;
-  }
-
-  .stats__card {
-    margin-bottom: 1rem;
-  }
-
-  .course-card {
-    margin-bottom: 1.5rem;
-  }
+.home__stat-card p {
+  font-size: 1.1rem;
+  color: #636e72;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
-  .quiz-header {
-    flex-direction: column;
+  .home__title {
+    font-size: 2.5rem;
+  }
+
+  .home__hero {
+    padding: 60px 0;
     text-align: center;
-    gap: 1rem;
+  }
+
+  .home__hero-stats {
+    justify-content: center;
+  }
+
+  .home__hero-image-wrapper {
+    margin-top: 2rem;
+  }
+
+  .home__section-title {
+    font-size: 2rem;
+  }
+
+  .home__feature-card,
+  .home__subject-card,
+  .home__stat-card {
+    margin-bottom: 1rem;
   }
 }
 </style>

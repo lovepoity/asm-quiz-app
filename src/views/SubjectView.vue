@@ -10,7 +10,14 @@
         :key="subject.Id"
         :style="{ background: gradientColors[index % gradientColors.length] }"
       >
-        <img :src="getLogoUrl(subject.Id)" :alt="subject.Name" class="subject__image" />
+        <img
+          :src="getLogoUrl(subject.Id)"
+          :alt="subject.Name"
+          class="subject__image"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="high"
+        />
         <div class="subject__content">
           <h5 class="subject__title">{{ subject.Name }}</h5>
           <div class="subject__block">
@@ -80,6 +87,13 @@ export default {
       return new URL(`../api/logos/${subjectId}.png`, import.meta.url).href
     },
     startQuiz(subject) {
+      const isLoggedIn = localStorage.getItem('user')
+
+      if (!isLoggedIn) {
+        this.$router.push('/login?redirect=/subjects')
+        return
+      }
+
       this.selectedSubject = subject
       this.showConfirmStart = true
     },

@@ -83,7 +83,9 @@
   <div class="layout" :class="{ 'layout--full': isQuizRoute }">
     <Sidebar v-if="!isQuizRoute" />
     <main class="main-content" :class="{ 'main-content--full': isQuizRoute }">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </main>
   </div>
 

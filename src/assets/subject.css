@@ -33,7 +33,6 @@
 
 .subject__card:hover {
   box-shadow: var(--shadow);
-  transform: translateY(-3px);
 }
 
 .subject__image {
@@ -79,6 +78,7 @@
   margin-top: auto;
   color: var(--orange-dark);
   background-color: var(--orange-light);
+  border: 1px solid var(--orange-dark);
   font-weight: 600;
   font-size: 16px;
   transition: all 0.25s ease;
