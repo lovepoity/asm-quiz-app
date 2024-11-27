@@ -1,6 +1,9 @@
 <template>
   <header class="header" v-if="!isQuizRoute">
     <div class="header__container">
+      <button class="header__menu-btn" @click="toggleMobileMenu">
+        <i class="bi bi-list"></i>
+      </button>
       <router-link to="/" class="header__logo">
         <img src="/favicon.ico" alt="logo" />
         <span>SUNAO EDUCATION</span>
@@ -79,6 +82,13 @@
       </div>
     </div>
   </header>
+
+  <div class="mobile-sidebar" :class="{ 'mobile-sidebar--active': isMobileMenuOpen }">
+    <div class="mobile-sidebar__overlay" @click="toggleMobileMenu"></div>
+    <div class="mobile-sidebar__content">
+      <Sidebar @linkClick="closeMobileMenu" />
+    </div>
+  </div>
 
   <div class="layout" :class="{ 'layout--full': isQuizRoute }">
     <Sidebar v-if="!isQuizRoute" />
@@ -188,6 +198,7 @@ export default {
       searchQuery: '',
       filteredSubjects: [],
       isSearchResultsVisible: false,
+      isMobileMenuOpen: false,
     }
   },
 
@@ -285,6 +296,18 @@ export default {
 
     getLogoUrl(subjectId) {
       return new URL(`/src/api/logos/${subjectId}.png`, import.meta.url).href
+    },
+    toggleMobileMenu() {
+      this.isMobileMenuOpen = !this.isMobileMenuOpen
+      if (this.isMobileMenuOpen) {
+        document.body.style.overflow = 'hidden'
+      } else {
+        document.body.style.overflow = ''
+      }
+    },
+    closeMobileMenu() {
+      this.isMobileMenuOpen = false
+      document.body.style.overflow = ''
     },
   },
 }
@@ -391,5 +414,90 @@ export default {
 .main-content--full {
   margin-left: 0;
   padding: 0;
+}
+
+.header__menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--text-color);
+}
+
+.mobile-sidebar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  visibility: hidden;
+  transition: visibility 0.3s;
+}
+
+.mobile-sidebar__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.mobile-sidebar__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: var(--white);
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+  overflow-y: auto;
+}
+
+.mobile-sidebar--active {
+  visibility: visible;
+}
+
+.mobile-sidebar--active .mobile-sidebar__overlay {
+  opacity: 1;
+}
+
+.mobile-sidebar--active .mobile-sidebar__content {
+  transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+  .mobile-sidebar__content {
+    width: fit-content;
+  }
+
+  .header__menu-btn {
+    display: block;
+  }
+
+  .mobile-sidebar {
+    display: block;
+  }
+
+  /* Ẩn sidebar mặc định */
+  .layout > .sidebar {
+    display: none;
+  }
+
+  /* Hiển thị sidebar trong mobile menu */
+  .mobile-sidebar .sidebar {
+    display: block;
+    position: static;
+    height: auto;
+    padding: 24px 16px;
+    width: fit-content;
+  }
 }
 </style>

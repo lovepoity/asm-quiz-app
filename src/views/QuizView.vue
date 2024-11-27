@@ -429,4 +429,110 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.quiz {
+  margin-top: 70px;
+  padding: 48px 64px 128px;
+  font-size: 14px;
+}
+
+.quiz__content-wrapper {
+  display: flex;
+  gap: 24px;
+}
+
+.quiz__question--left {
+  flex: 1;
+}
+
+/* Thêm responsive styles */
+@media (max-width: 1200px) {
+  .quiz {
+    padding: 32px;
+  }
+
+  .quiz__title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 992px) {
+  .quiz__content-wrapper {
+    flex-direction: column;
+  }
+
+  .quiz__question-navigator {
+    width: 100%;
+    grid-template-columns: repeat(10, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .quiz {
+    padding: 16px;
+  }
+
+  .quiz__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .quiz__title {
+    font-size: 24px;
+  }
+
+  .quiz__question-navigator {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  .quiz__navigation {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .quiz__button {
+    width: 100%;
+  }
+
+  .quiz__popup {
+    width: 95%;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .quiz__question-navigator {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .quiz__question-text {
+    font-size: 16px;
+  }
+
+  .quiz__answer {
+    padding: 12px;
+  }
+
+  .quiz__completed-content {
+    padding: 16px;
+  }
+
+  .quiz__completed-icon {
+    font-size: 48px;
+  }
+
+  .quiz__completed-title {
+    font-size: 24px;
+  }
+
+  .quiz__completed-message {
+    font-size: 16px;
+  }
+
+  .quiz__badge {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+</style>

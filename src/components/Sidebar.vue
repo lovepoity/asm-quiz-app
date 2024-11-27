@@ -1,7 +1,7 @@
 <template>
   <aside class="sidebar">
     <nav class="sidebar__nav">
-      <router-link to="/" class="sidebar__item" exact>
+      <router-link to="/" class="sidebar__item" exact @click="handleLinkClick">
         <i class="fa-solid fa-house"></i>
         <span>Trang chủ</span>
       </router-link>
@@ -10,6 +10,7 @@
         to="/subjects"
         class="sidebar__item"
         :class="{ 'router-link-active': isQuizRoute }"
+        @click="handleLinkClick"
       >
         <i class="fa-solid fa-book"></i>
         <span>Môn học</span>
@@ -33,11 +34,16 @@
   </aside>
 </template>
 
-<script>
+<script lang="js">
 export default {
   computed: {
     isQuizRoute() {
       return this.$route.path.includes('/quiz/')
+    },
+  },
+  methods: {
+    handleLinkClick() {
+      this.$emit('linkClick')
     },
   },
 }
