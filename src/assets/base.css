@@ -42,9 +42,6 @@ button {
 button {
   border-radius: 8px !important;
 }
-input[select] {
-  border-radius: 8px;
-}
 
 /* Common responsive styles */
 @media (max-width: 576px) {
