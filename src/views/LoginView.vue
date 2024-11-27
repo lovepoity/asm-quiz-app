@@ -99,7 +99,6 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
 }
 
 .login__submit-btn:hover {

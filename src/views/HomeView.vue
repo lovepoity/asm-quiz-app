@@ -369,7 +369,7 @@ export default {
 
 .home__subject-image {
   width: 100%;
-  height: 200px;
+  height: 170px;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
@@ -403,14 +403,14 @@ export default {
 .home__subject-content h4 {
   font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
   color: #2d3436;
 }
 
 .home__subject-content p {
   color: #636e72;
   font-size: 0.9rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.1rem;
   min-height: 60px;
 }
 
@@ -442,12 +442,11 @@ export default {
 
 .home__stats {
   padding: 80px 0;
-  background: #f8f9fa;
 }
 
 .home__stat-card {
   text-align: center;
-  padding: 2rem;
+  padding: 1rem;
   background: white;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -474,7 +473,7 @@ export default {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--orange-dark);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
 }
 
 .home__stat-card p {

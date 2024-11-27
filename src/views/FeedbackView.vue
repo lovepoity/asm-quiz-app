@@ -10,35 +10,7 @@
             </p>
           </div>
 
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="feedback__info">
-                <div class="feedback__info-item">
-                  <div class="feedback__info-icon">
-                    <i class="bi bi-star"></i>
-                  </div>
-                  <h3>Đánh giá</h3>
-                  <p>4.8/5 từ hơn 10,000+ học viên</p>
-                </div>
-
-                <div class="feedback__info-item">
-                  <div class="feedback__info-icon">
-                    <i class="bi bi-patch-check"></i>
-                  </div>
-                  <h3>Chất lượng</h3>
-                  <p>500+ bài thi được cập nhật liên tục</p>
-                </div>
-
-                <div class="feedback__info-item">
-                  <div class="feedback__info-icon">
-                    <i class="bi bi-people"></i>
-                  </div>
-                  <h3>Cộng đồng</h3>
-                  <p>10,000+ thành viên tích cực</p>
-                </div>
-              </div>
-            </div>
-
+          <div class="row g-4 flex-column align-items-center">
             <div class="col-md-8">
               <div class="feedback__form-wrapper">
                 <form class="feedback__form" @submit.prevent="handleSubmit">
@@ -109,6 +81,42 @@
                 </form>
               </div>
             </div>
+
+            <div class="col-md-8">
+              <div class="feedback__info">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="feedback__info-item">
+                      <div class="feedback__info-icon">
+                        <i class="bi bi-star"></i>
+                      </div>
+                      <h3>Đánh giá</h3>
+                      <p>4.8/5 từ hơn 10,000+ học viên</p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="feedback__info-item">
+                      <div class="feedback__info-icon">
+                        <i class="bi bi-patch-check"></i>
+                      </div>
+                      <h3>Chất lượng</h3>
+                      <p>500+ bài thi được cập nhật liên tục</p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="feedback__info-item">
+                      <div class="feedback__info-icon">
+                        <i class="bi bi-people"></i>
+                      </div>
+                      <h3>Cộng đồng</h3>
+                      <p>10,000+ thành viên tích cực</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -171,11 +179,10 @@ export default {
 }
 
 .feedback__info-item {
-  margin-bottom: 2rem;
   text-align: center;
 }
 
-.feedback__info-item:last-child {
+.feedback__info-item {
   margin-bottom: 0;
 }
 

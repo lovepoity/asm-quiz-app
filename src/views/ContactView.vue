@@ -8,51 +8,7 @@
             <p class="contact__subtitle">Bạn có câu hỏi? Chúng tôi luôn sẵn sàng hỗ trợ bạn 24/7</p>
           </div>
 
-          <div class="row g-4">
-            <!-- Contact Info -->
-            <div class="col-md-4">
-              <div class="contact__info">
-                <div class="contact__info-item">
-                  <div class="contact__info-icon">
-                    <i class="bi bi-geo-alt"></i>
-                  </div>
-                  <h3>Địa chỉ</h3>
-                  <p>Số 1, ngõ 41, Trần Duy Hưng, Cầu Giấy, Hà Nội</p>
-                </div>
-
-                <div class="contact__info-item">
-                  <div class="contact__info-icon">
-                    <i class="bi bi-envelope"></i>
-                  </div>
-                  <h3>Email</h3>
-                  <p>info@sunao.edu.vn</p>
-                </div>
-
-                <div class="contact__info-item">
-                  <div class="contact__info-icon">
-                    <i class="bi bi-telephone"></i>
-                  </div>
-                  <h3>Điện thoại</h3>
-                  <p>0943 09 0202</p>
-                </div>
-
-                <div class="contact__social">
-                  <a href="#" class="contact__social-link">
-                    <i class="bi bi-facebook"></i>
-                  </a>
-                  <a href="#" class="contact__social-link">
-                    <i class="bi bi-youtube"></i>
-                  </a>
-                  <a href="#" class="contact__social-link">
-                    <i class="bi bi-linkedin"></i>
-                  </a>
-                  <a href="#" class="contact__social-link">
-                    <i class="bi bi-twitter"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
+          <div class="row g-4 flex-column align-items-center">
             <!-- Contact Form -->
             <div class="col-md-8">
               <div class="contact__form-wrapper">
@@ -131,6 +87,58 @@
                 </form>
               </div>
             </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-8">
+              <div class="contact__info">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="contact__info-item">
+                      <div class="contact__info-icon">
+                        <i class="bi bi-geo-alt"></i>
+                      </div>
+                      <h3>Địa chỉ</h3>
+                      <p>Số 1, ngõ 41, Trần Duy Hưng, Cầu Giấy, Hà Nội</p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="contact__info-item">
+                      <div class="contact__info-icon">
+                        <i class="bi bi-envelope"></i>
+                      </div>
+                      <h3>Email</h3>
+                      <p>info@sunao.edu.vn</p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="contact__info-item">
+                      <div class="contact__info-icon">
+                        <i class="bi bi-telephone"></i>
+                      </div>
+                      <h3>Điện thoại</h3>
+                      <p>0943 09 0202</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="contact__social">
+                  <a href="#" class="contact__social-link">
+                    <i class="bi bi-facebook"></i>
+                  </a>
+                  <a href="#" class="contact__social-link">
+                    <i class="bi bi-youtube"></i>
+                  </a>
+                  <a href="#" class="contact__social-link">
+                    <i class="bi bi-linkedin"></i>
+                  </a>
+                  <a href="#" class="contact__social-link">
+                    <i class="bi bi-twitter"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -207,8 +215,8 @@ export default {
 }
 
 .contact__info-item {
-  margin-bottom: 2rem;
   text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .contact__info-item:last-child {

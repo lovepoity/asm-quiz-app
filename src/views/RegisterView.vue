@@ -140,7 +140,6 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
 }
 
 .register__submit-btn:hover {

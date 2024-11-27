@@ -33,3 +33,16 @@ npm run build
 ```sh
 npm run lint
 ```
+
+<!-- COMMENT -->
+
+git add .
+git commit -m "update: "
+git push origin main
+npm run build
+cd dist
+git init
+git add -A
+git commit -m "deploy"
+git push -f https://github.com/lovepoity/mini-quiz-app.git master:gh-pages
+cd ..
